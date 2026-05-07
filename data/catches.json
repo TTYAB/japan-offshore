@@ -1,8 +1,106 @@
 {
-  "_lastCrawled": null,
+  "_lastCrawled": "2026-05-07T04:25:33.861Z",
   "_crawlerVersion": "1.0.0",
-  "_note": "このファイルはクローラーが上書きします。初回はnpm run crawlで実行してください。",
-  "boats": {},
+  "boats": {
+    "sawaura": {
+      "lastSuccess": "2026-05-07T04:25:34.860Z",
+      "catches": [],
+      "source": "https://www.fishing-v.jp/choka/choka_detail.php?s=12074",
+      "parser": "fishing-v"
+    },
+    "watanabe": {
+      "lastSuccess": "2026-05-07T04:25:34.980Z",
+      "catches": [],
+      "source": "https://www.fishing-v.jp/choka/detail.php?s=172",
+      "parser": "fishing-v"
+    },
+    "fukagawa-yoshinoya": {
+      "lastSuccess": "2026-05-07T04:25:35.009Z",
+      "catches": [],
+      "source": "https://www.chowari.jp/ship/00271/catch/",
+      "parser": "chowari"
+    },
+    "tsurikou": {
+      "lastSuccess": "2026-05-07T04:25:35.401Z",
+      "catches": [],
+      "source": "https://www.marines-net.co.jp/inn/tsurikouhonke",
+      "parser": "marines-net"
+    },
+    "icfc": {
+      "lastSuccess": "2026-05-07T04:25:35.632Z",
+      "catches": [
+        {
+          "date": "2026-05-05",
+          "fish": "マゴチ",
+          "countMin": 1,
+          "countMax": 1,
+          "sizeRange": null,
+          "comment": "5/5 マゴチ乗合ロング便 コマツ さすがに昨日の時化は影響デカすぎ&#128514;しかも午前中は北風強すぎるしとりあえず近場で探るもアタリのみ沖に出しても風強いし濁ってるし前回もマゴチ便で最初の1…"
+        },
+        {
+          "date": "2026-05-02",
+          "fish": "ヒラメ",
+          "countMin": 2,
+          "countMax": 2,
+          "sizeRange": null,
+          "comment": "5/2 タイラバ便 宇佐美 マダイ狙いで出船！まずはヒラメがヒット！お次はサメ！マダイ2枚追加からの、、、もう一つマダイ！よく引いて上がってきたのはシーバス！マダイ追加！マゴチも釣れて、、、ラストもマ…"
+        },
+        {
+          "date": "2026-04-30",
+          "fish": "マダイ",
+          "countMin": 2,
+          "countMax": 2,
+          "sizeRange": null,
+          "comment": "4/30 タイラバ便 太郎 今日はタイラバで出船！序盤からマダイヒット！ホウボウも活性高め！初マダイ&#127881;ムシガレイやホウボウと、色々当たりましたが、本命は追加ならずでした。なかなか乗らな…"
+        }
+      ],
+      "source": "https://icfc.jugem.jp/?mode=rss",
+      "parser": "rss"
+    },
+    "iwataya": {
+      "lastSuccess": "2026-05-07T04:25:36.473Z",
+      "catches": [],
+      "source": "https://www.funayado-iwataya.com/",
+      "parser": "generic"
+    },
+    "bentenya": {
+      "lastSuccess": "2026-05-07T04:25:36.542Z",
+      "catches": [],
+      "source": "https://bentenya.com/",
+      "parser": "generic"
+    },
+    "yoshikyu": {
+      "lastSuccess": "2026-05-07T04:25:36.599Z",
+      "catches": [],
+      "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-yoshikyu.htm",
+      "parser": "gyo-ne-jp"
+    },
+    "yonemoto": {
+      "lastSuccess": "2026-05-07T04:25:36.606Z",
+      "catches": [
+        {
+          "date": "2026-05-06",
+          "fish": "ワラサ",
+          "countMin": 1,
+          "countMax": 1,
+          "sizeRange": null,
+          "comment": "5月6日の水曜日もｼｮｰﾄLTアジ船で出船ができました～♪(^^)。お越しになられた釣り人の皆さま、誠にありがとうございましたm(_ _)m。南風がそよぐ曇り空の穏やかな釣り日和でした♪(^^)。そん…"
+        }
+      ],
+      "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-yonemoto.htm",
+      "parser": "gyo-ne-jp"
+    },
+    "tadahiko": {
+      "lastSuccess": "2026-05-07T04:25:37.001Z",
+      "catches": [],
+      "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-tadahiko.htm",
+      "parser": "gyo-ne-jp"
+    }
+  },
   "errors": [],
-  "summary": { "ok": 0, "failed": 0, "total": 0 }
+  "summary": {
+    "ok": 10,
+    "failed": 0,
+    "total": 10
+  }
 }
