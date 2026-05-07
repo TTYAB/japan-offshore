@@ -815,7 +815,7 @@ function StationAutosuggest({ value, onChange, placeholder }) {
     return STATIONS.filter(s => s.includes(value)).slice(0, 6);
   }, [value]);
   return (
-    <div style={{ position: 'relative' }}>
+    <div style={{ position: 'relative', width: '100%', boxSizing: 'border-box' }}>
       <input
         value={value}
         onChange={e => { onChange(e.target.value); setOpen(true); }}
@@ -826,6 +826,7 @@ function StationAutosuggest({ value, onChange, placeholder }) {
           width: '100%', padding: '14px 16px',
           background: C.bg2, border: `1px solid ${C.line}`,
           color: C.text, fontFamily: FONT_BODY, fontSize: 15, outline: 'none',
+          boxSizing: 'border-box',
         }}
       />
       {open && matches.length > 0 && (
@@ -833,6 +834,7 @@ function StationAutosuggest({ value, onChange, placeholder }) {
           position: 'absolute', top: '100%', left: 0, right: 0,
           background: C.panel, border: `1px solid ${C.line}`,
           maxHeight: 220, overflowY: 'auto', zIndex: 10,
+          boxSizing: 'border-box',
         }}>
           {matches.map(m => (
             <button key={m} onMouseDown={() => { onChange(m); setOpen(false); }} style={{
@@ -840,6 +842,7 @@ function StationAutosuggest({ value, onChange, placeholder }) {
               background: 'transparent', border: 'none',
               color: C.text, fontFamily: FONT_BODY, fontSize: 14,
               cursor: 'pointer', borderTop: `1px solid ${C.line}`,
+              boxSizing: 'border-box',
             }}>
               {m}<span style={{ color: C.dim, marginLeft: 6 }}>駅</span>
             </button>
@@ -862,7 +865,12 @@ function AccessSection({ transport, setTransport, stations, setStations, people 
     <div>
       <SectionLabel index="04" en="TRANSIT" />
       <ChapterTitle jp="どうやって行く？" en="HOW TO GO" />
-      <div className="grid grid-cols-2 gap-3 mb-6">
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gap: 12,
+        marginBottom: 24,
+      }}>
         {[{ id: 'train', icon: Train, jp: '電車', en: 'TRAIN' }, { id: 'car', icon: Car, jp: '車', en: 'CAR' }].map(o => {
           const active = transport === o.id;
           const Icon = o.icon;
@@ -873,6 +881,7 @@ function AccessSection({ transport, setTransport, stations, setStations, people 
               color: active ? C.bg : C.text,
               border: `1px solid ${active ? C.aqua : C.line}`,
               display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10,
+              boxSizing: 'border-box',
             }}>
               <Icon size={28} strokeWidth={1.5} />
               <div style={{ fontFamily: FONT_DISPLAY, fontWeight: 800, fontSize: 22, letterSpacing: '0.05em' }}>{o.en}</div>
@@ -882,14 +891,14 @@ function AccessSection({ transport, setTransport, stations, setStations, people 
         })}
       </div>
       {transport === 'train' && (
-        <div style={{ background: C.panel, border: `1px solid ${C.line}`, padding: 18 }}>
+        <div style={{ background: C.panel, border: `1px solid ${C.line}`, padding: 18, boxSizing: 'border-box' }}>
           <div className="flex items-center justify-between mb-4">
             <Mono style={{ color: C.coral }}>NEAREST STATION × {people}</Mono>
             <Mono>VIA NAVITIME (planned)</Mono>
           </div>
           <div className="space-y-3">
             {Array.from({ length: people }).map((_, i) => (
-              <div key={i}>
+              <div key={i} style={{ width: '100%', boxSizing: 'border-box' }}>
                 <div style={{ fontFamily: FONT_MONO, fontSize: 11, color: C.dim, marginBottom: 6, letterSpacing: '0.1em' }}>
                   PERSON {(i + 1).toString().padStart(2, '0')}
                 </div>
@@ -1828,6 +1837,7 @@ export default function App() {
         body { background: ${C.bg}; }
         ::selection { background: ${C.coral}; color: ${C.bg}; }
         input::placeholder { color: ${C.dim2}; }
+        input, button, textarea, select { box-sizing: border-box; }
         input[type="date"]::-webkit-calendar-picker-indicator {
           filter: invert(1) opacity(0.6); cursor: pointer;
         }
