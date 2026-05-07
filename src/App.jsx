@@ -1,17 +1,15 @@
 // src/App.jsx
-// v3 — boats-master.json と catches.json を読み込む構成。
-// クローラーが書き出したcatches.jsonを使うため、リロードするだけで最新釣果に。
+// v3.1 — JSONロード版 + §C LEARN MORE復活 + 魚種フィルタ + マッチ0除外
 
 import React, { useState, useMemo, useEffect } from 'react';
 import {
   Train, Car, Search, ChevronDown, ChevronUp, X,
   Wind, Waves, Thermometer, Moon, Star, ExternalLink,
-  Play, BookOpen, Compass, Plus, Minus,
-  ArrowUpRight, Check, ArrowRight, Loader2, AlertCircle,
+  Compass, Plus, Minus, ArrowUpRight, Check, ArrowRight,
+  Loader2, AlertCircle, Play, BookOpen,
 } from 'lucide-react';
 import {
-  XAxis, YAxis, ResponsiveContainer,
-  Tooltip, Area, AreaChart,
+  XAxis, YAxis, ResponsiveContainer, Tooltip, Area, AreaChart,
 } from 'recharts';
 
 const C = {
@@ -26,7 +24,6 @@ const FONT_BODY    = '"Hanken Grotesk", "Noto Sans JP", sans-serif';
 const FONT_MONO    = '"JetBrains Mono", monospace';
 const FONT_JP      = '"Shippori Mincho B1", "Noto Serif JP", serif';
 
-// 駅サジェスト用
 const STATIONS = [
   '渋谷', '新宿', '東京', '品川', '横浜', '川崎', '大井町', '大森', '蒲田',
   '上野', '池袋', '秋葉原', '浜松町', '田町', '五反田', '目黒', '恵比寿',
@@ -61,6 +58,110 @@ const FISH_EXPERIENCES = [
 
 const BAY_CENTER = { lat: 35.45, lng: 139.78, name: '中ノ瀬' };
 
+/* =========================================================================
+   学習コンテンツ・プール
+   ========================================================================= */
+const LEARNING_CONTENT = {
+  'アジ': [
+    { type: 'video',   title: 'LTアジ完全ガイド｜東京湾の数釣り入門',           src: 'YouTube · TSURIBITO · 12分', url: 'https://www.youtube.com/results?search_query=LTアジ+東京湾+入門' },
+    { type: 'article', title: '初心者でも釣れる！金沢八景LTアジ釣り解説',         src: 'TSURI HACK',                  url: 'https://tsurihack.com/?s=LTアジ' },
+    { type: 'tackle',  title: 'おすすめタックル：ビシ40号 / PE1.5号 / リーダー3号', src: 'タックル目安',                 url: 'https://www.google.com/search?q=アジ+船+タックル' },
+    { type: 'video',   title: '黄金アジを釣る・金沢八景沖の実釣',                src: 'YouTube · つり丸 · 18分',     url: 'https://www.youtube.com/results?search_query=黄金アジ+金沢八景' },
+    { type: 'article', title: 'ビシ40号のセッティングと指示ダナの取り方',         src: 'OFFSHORE TIMES',             url: 'https://www.google.com/search?q=ビシ40号+セッティング' },
+  ],
+  'タチウオ': [
+    { type: 'video',   title: 'タチウオテンヤ完全攻略｜東京湾観音崎沖',           src: 'YouTube · ルアーニュース · 15分', url: 'https://www.youtube.com/results?search_query=タチウオテンヤ+東京湾' },
+    { type: 'article', title: '東京湾タチウオ最盛期攻略ガイド',                   src: 'OFFSHORE TIMES',              url: 'https://www.google.com/search?q=タチウオ+東京湾+攻略' },
+    { type: 'tackle',  title: 'おすすめタックル：ジグ100-150g / テンヤ50号 / PE2号', src: 'タックル目安',                url: 'https://www.google.com/search?q=タチウオ+ジギング+タックル' },
+    { type: 'video',   title: 'タチウオジギング・反応の取り方',                   src: 'YouTube · 9分',               url: 'https://www.youtube.com/results?search_query=タチウオジギング+東京湾' },
+    { type: 'article', title: '指4本以上のドラゴンを狙う誘い方',                  src: 'LURE NEWS',                   url: 'https://www.google.com/search?q=タチウオ+ドラゴン+誘い' },
+  ],
+  'シーバス': [
+    { type: 'video',   title: '湾奥シーバス｜バイブの使い方完全解説',             src: 'YouTube · アイランドクルーズ · 18分', url: 'https://www.youtube.com/results?search_query=ボートシーバス+東京湾' },
+    { type: 'article', title: '東京湾ボートシーバス完全ガイド',                   src: 'TSURI HACK',                  url: 'https://tsurihack.com/?s=ボートシーバス' },
+    { type: 'tackle',  title: 'おすすめルアー：バイブ26g / シンペン / VJ22-28g',  src: 'ルアー目安',                  url: 'https://www.google.com/search?q=シーバス+ボート+ルアー' },
+    { type: 'video',   title: 'コノシロパターンのビッグベイト',                   src: 'YouTube · 14分',              url: 'https://www.youtube.com/results?search_query=シーバス+ビッグベイト+コノシロ' },
+    { type: 'article', title: '湾奥シーバスのストラクチャー攻略',                 src: 'LURE NEWS',                   url: 'https://www.google.com/search?q=シーバス+ストラクチャー' },
+  ],
+  'シロギス': [
+    { type: 'video',   title: 'シロギス天秤仕掛けの基本',                         src: 'YouTube · 11分',              url: 'https://www.youtube.com/results?search_query=シロギス+船+入門' },
+    { type: 'article', title: '初心者向けシロギス釣り入門',                       src: 'TSURIBITO Web',               url: 'https://www.google.com/search?q=シロギス+船釣り+入門' },
+    { type: 'tackle',  title: 'おすすめタックル：天秤15号 / PE1号 / 投げ竿2.4m',  src: 'タックル目安',                url: 'https://www.google.com/search?q=シロギス+タックル+船' },
+  ],
+  'マゴチ': [
+    { type: 'video',   title: '走水マゴチ｜エサ釣りの基本（サイマキ刺し方）',     src: 'YouTube · 14分',              url: 'https://www.youtube.com/results?search_query=マゴチ+船+走水' },
+    { type: 'article', title: '東京湾マゴチ釣り入門ガイド',                       src: 'TSURIBITO Web',               url: 'https://www.google.com/search?q=マゴチ+東京湾+入門' },
+    { type: 'tackle',  title: 'おすすめタックル：三日月オモリ15号 / フロロ5号 / マゴチバリ', src: 'タックル目安',         url: 'https://www.google.com/search?q=マゴチ+タックル' },
+    { type: 'video',   title: 'マゴチワインドの誘い方',                           src: 'YouTube · 11分',              url: 'https://www.youtube.com/results?search_query=マゴチ+ワインド' },
+  ],
+  'カワハギ': [
+    { type: 'video',   title: 'カワハギ｜上手アタリの取り方完全解説',             src: 'YouTube · 22分',              url: 'https://www.youtube.com/results?search_query=カワハギ+船+アタリ' },
+    { type: 'article', title: '竹岡沖カワハギ釣り徹底攻略',                       src: 'TSURI HACK',                  url: 'https://tsurihack.com/?s=カワハギ' },
+    { type: 'tackle',  title: 'おすすめタックル：胴突3本針 / 集寄 / アサリエサ',  src: 'タックル目安',                url: 'https://www.google.com/search?q=カワハギ+タックル' },
+  ],
+  'マダイ': [
+    { type: 'video',   title: '東京湾タイラバ完全ガイド',                         src: 'YouTube · 16分',              url: 'https://www.youtube.com/results?search_query=タイラバ+東京湾' },
+    { type: 'article', title: 'ボートタイラバ入門｜横浜港のマダイ',               src: 'TSURI HACK',                  url: 'https://tsurihack.com/?s=タイラバ' },
+    { type: 'tackle',  title: 'おすすめタックル：タイラバヘッド60-120g / PE0.8-1号', src: 'タックル目安',                url: 'https://www.google.com/search?q=タイラバ+タックル' },
+    { type: 'video',   title: 'ネクタイカラー選びの基本',                         src: 'YouTube · 12分',              url: 'https://www.youtube.com/results?search_query=タイラバ+ネクタイ' },
+  ],
+  'カサゴ': [
+    { type: 'video',   title: 'ライトゲームでカサゴを釣る',                       src: 'YouTube · 10分',              url: 'https://www.youtube.com/results?search_query=カサゴ+船' },
+    { type: 'article', title: '初心者向けカサゴ釣り入門',                         src: 'TSURIBITO Web',               url: 'https://www.google.com/search?q=カサゴ+船釣り' },
+  ],
+  'クロダイ': [
+    { type: 'video',   title: 'ボートクロダイ・キャンディ釣法',                   src: 'YouTube · アイランドクルーズ · 15分', url: 'https://www.youtube.com/results?search_query=ボートクロダイ+キャンディ' },
+    { type: 'article', title: 'チヌキューブ・カラス貝の使い分け',                 src: 'LURE NEWS',                   url: 'https://www.google.com/search?q=クロダイ+ボート+ルアー' },
+    { type: 'tackle',  title: 'おすすめタックル：チヌヘッド3.5g / フロロ3号',     src: 'タックル目安',                url: 'https://www.google.com/search?q=クロダイ+落とし込み' },
+  ],
+  'サワラ': [
+    { type: 'video',   title: '東京湾サワラキャスティング',                       src: 'YouTube · 15分',              url: 'https://www.youtube.com/results?search_query=サワラ+東京湾' },
+    { type: 'article', title: '湾奥サワラパターン攻略',                           src: 'LURE NEWS',                   url: 'https://www.google.com/search?q=サワラ+東京湾' },
+    { type: 'tackle',  title: 'おすすめルアー：シンペン20-40g / メタルジグ60g',   src: 'ルアー目安',                  url: 'https://www.google.com/search?q=サワラ+ルアー' },
+  ],
+  'マダコ': [
+    { type: 'video',   title: '東京湾マダコ船入門',                               src: 'YouTube · 13分',              url: 'https://www.youtube.com/results?search_query=マダコ+船+東京湾' },
+    { type: 'article', title: 'タコエギの選び方',                                 src: 'TSURI HACK',                  url: 'https://tsurihack.com/?s=マダコ' },
+  ],
+  '青物': [
+    { type: 'video',   title: '東京湾青物ジギング',                               src: 'YouTube · 17分',              url: 'https://www.youtube.com/results?search_query=青物+ジギング+東京湾' },
+    { type: 'article', title: 'イナダ・ワラサパターンの読み方',                   src: 'LURE NEWS',                   url: 'https://www.google.com/search?q=青物+東京湾' },
+  ],
+  'メバル': [
+    { type: 'video',   title: 'メバル船の基本',                                   src: 'YouTube · 9分',               url: 'https://www.youtube.com/results?search_query=メバル+船+東京湾' },
+    { type: 'article', title: '湾奥メバルの誘い方',                               src: 'TSURIBITO Web',               url: 'https://www.google.com/search?q=メバル+船+誘い' },
+  ],
+  'ヒラメ': [
+    { type: 'video',   title: '泳がせ釣りでヒラメ',                               src: 'YouTube · 14分',              url: 'https://www.youtube.com/results?search_query=ヒラメ+泳がせ+東京湾' },
+    { type: 'article', title: '東京湾ヒラメ釣り入門',                             src: 'TSURI HACK',                  url: 'https://tsurihack.com/?s=ヒラメ' },
+  ],
+};
+
+const DEFAULT_LEARNING_CONTENT = [
+  { type: 'video',   title: '初めての船釣り｜乗船前に知っておきたい基本',         src: 'YouTube · 8分',               url: 'https://www.youtube.com/results?search_query=船釣り+初心者' },
+  { type: 'article', title: '東京湾船釣り入門ガイド',                             src: 'TSURI HACK',                  url: 'https://tsurihack.com/?s=東京湾+船釣り' },
+];
+
+function pickLearningContent(targetFish) {
+  const seen = new Set();
+  const picked = [];
+  for (const fish of targetFish) {
+    const pool = LEARNING_CONTENT[fish];
+    if (!pool) continue;
+    for (const item of pool) {
+      if (seen.has(item.title)) continue;
+      seen.add(item.title);
+      picked.push({ ...item, forFish: fish });
+      if (picked.length >= 5) break;
+    }
+    if (picked.length >= 5) break;
+  }
+  if (picked.length === 0) {
+    return DEFAULT_LEARNING_CONTENT.map(c => ({ ...c, forFish: null }));
+  }
+  return picked;
+}
+
 /* ===== データロード（JSON） ===================================== */
 
 function useBoatData() {
@@ -70,8 +171,6 @@ function useBoatData() {
     let cancelled = false;
     async function load() {
       try {
-        // Vercelデプロイ時は /data/ パスで配信されるよう vercel.json で設定。
-        // ローカル開発時は public/data/ にコピーしておく。
         const [masterRes, catchesRes] = await Promise.all([
           fetch('/data/boats-master.json'),
           fetch('/data/catches.json'),
@@ -146,7 +245,6 @@ async function fetchWeather(lat, lng, date) {
 function useWeatherAll(boats, date) {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
-
   useEffect(() => {
     if (!date || !boats?.length) return;
     setLoading(true);
@@ -161,7 +259,6 @@ function useWeatherAll(boats, date) {
     });
     return () => { cancelled = true; };
   }, [date, boats]);
-
   return { data, loading };
 }
 
@@ -197,21 +294,23 @@ function scoreBoat(boat, input, weather, catches) {
   const breakdown = {};
   let total = 0;
 
-  // 魚種一致 (35%)
   const fishMatch = input.fish.filter(f =>
     boat.targets.some(t => t.includes(f) || f.includes(t))
   ).length;
+
+  if (input.fish.length > 0 && fishMatch === 0) {
+    return null;
+  }
+
   const fishScore = input.fish.length === 0 ? 50 : (fishMatch / input.fish.length) * 100;
   breakdown.fish = fishScore;
   total += fishScore * 0.35;
 
-  // 天候 (20%)
   breakdown.weather = weatherScore(weather);
   total += breakdown.weather * 0.20;
 
-  // 直近釣果 (15%) — クローラー由来。target魚種の直近7日の釣果数で評価
-  let recentScore = 50; // データなしは中立
-  if (catches?.length) {
+  let recentScore = 50;
+  if (catches?.length && input.fish.length) {
     const sevenDaysAgo = new Date(Date.now() - 7 * 86400000).toISOString().slice(0, 10);
     const recent = catches.filter(c =>
       c.date >= sevenDaysAgo &&
@@ -219,30 +318,28 @@ function scoreBoat(boat, input, weather, catches) {
     );
     if (recent.length > 0) {
       const avgCount = recent.reduce((a, c) => a + (c.countMax || c.countMin || 0), 0) / recent.length;
-      recentScore = Math.min(100, 50 + avgCount * 1.5);
+      recentScore = Math.min(100, 30 + avgCount * 1.5);
+    } else {
+      recentScore = 30;
     }
   }
   breakdown.recent = recentScore;
   total += recentScore * 0.15;
 
-  // 熟練度 (10%)
   let skillScore = boat.beginner;
   if (input.skill === 'expert') skillScore = 100 - Math.abs(60 - boat.beginner);
   else if (input.skill === 'mid') skillScore = 100 - Math.abs(75 - boat.beginner);
   breakdown.skill = skillScore;
   total += skillScore * 0.10;
 
-  // アクセス (15%)
   let accessScore = 60;
   if (input.transport === 'car') {
     accessScore = 80;
   } else {
-    // 渋谷起点距離で減点（90分超は厳しい）
     if (boat.shibuyaMin <= 45) accessScore += 20;
     else if (boat.shibuyaMin <= 60) accessScore += 12;
     else if (boat.shibuyaMin <= 75) accessScore += 4;
     else accessScore -= 8;
-
     if (boat.pickup) accessScore += 8;
     if (boat.walkMin <= 5) accessScore += 5;
     else if (boat.walkMin > 15) accessScore -= 5;
@@ -251,7 +348,6 @@ function scoreBoat(boat, input, weather, catches) {
   breakdown.access = accessScore;
   total += accessScore * 0.15;
 
-  // レビュー (5%)
   breakdown.review = boat.rating * 20;
   total += breakdown.review * 0.05;
 
@@ -369,18 +465,15 @@ function Hero({ onStart, boatCount }) {
         毎朝クロールされた最新の釣果と、Open-Meteoのライブ天候を組み合わせます。”
       </p>
 
-      <button
-        onClick={onStart}
-        style={{
-          marginTop: 32, padding: '16px 24px',
-          background: C.coral, color: C.bg,
-          fontFamily: FONT_DISPLAY, fontWeight: 800, fontSize: 18,
-          letterSpacing: '0.05em', textTransform: 'uppercase',
-          border: 'none', width: '100%', maxWidth: 360,
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          cursor: 'pointer',
-        }}
-      >
+      <button onClick={onStart} style={{
+        marginTop: 32, padding: '16px 24px',
+        background: C.coral, color: C.bg,
+        fontFamily: FONT_DISPLAY, fontWeight: 800, fontSize: 18,
+        letterSpacing: '0.05em', textTransform: 'uppercase',
+        border: 'none', width: '100%', maxWidth: 360,
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        cursor: 'pointer',
+      }}>
         Start The Search
         <ArrowRight size={20} strokeWidth={2.5} />
       </button>
@@ -808,21 +901,10 @@ function ScoreBar({ label, value, color }) {
 }
 
 function CatchChart({ data }) {
-  if (!data?.length) {
-    return (
-      <div style={{
-        height: 100, marginTop: 8, display: 'flex',
-        alignItems: 'center', justifyContent: 'center',
-        background: C.bg2, border: `1px dashed ${C.line}`,
-      }}>
-        <Mono>NO CRAWLED DATA YET</Mono>
-      </div>
-    );
-  }
-  // 日付昇順に並び替え（チャート用）
+  if (!data?.length) return null;
   const sorted = [...data].sort((a, b) => a.date.localeCompare(b.date)).slice(-7);
   const chartData = sorted.map(c => ({
-    d: c.date.slice(5), // MM-DD
+    d: c.date.slice(5),
     count: c.countMax || c.countMin || 0,
   }));
   return (
@@ -848,11 +930,35 @@ function CatchChart({ data }) {
   );
 }
 
-function BoatCard({ boat, score, weather, catchData, rank, expanded, onToggle }) {
+function MiniStat({ label, value, unit }) {
+  return (
+    <div>
+      <Mono>{label}</Mono>
+      <div style={{
+        fontFamily: FONT_DISPLAY, fontWeight: 800,
+        fontSize: 18, color: C.text, lineHeight: 1.1, marginTop: 1,
+      }}>
+        {value}{unit && <span style={{ fontSize: 10, color: C.dim, marginLeft: 1 }}>{unit}</span>}
+      </div>
+    </div>
+  );
+}
+
+function BoatCard({ boat, score, weather, catchData, selectedFish = [], rank, expanded, onToggle }) {
   const rankColors = [C.coral, C.aqua, C.sand];
   const rankColor = rankColors[rank - 1];
-  const recentCatches = catchData?.catches || [];
-  const latest = recentCatches[0];
+  const allCatches = catchData?.catches || [];
+
+  const filteredCatches = useMemo(() => {
+    if (!allCatches.length) return [];
+    if (selectedFish.length === 0) return allCatches;
+    return allCatches.filter(c =>
+      selectedFish.some(f => c.fish.includes(f) || f.includes(c.fish))
+    );
+  }, [allCatches, selectedFish]);
+
+  const latest = filteredCatches[filteredCatches.length - 1] || allCatches[allCatches.length - 1];
+  const learningContent = useMemo(() => pickLearningContent(selectedFish), [selectedFish]);
 
   return (
     <article style={{
@@ -921,7 +1027,6 @@ function BoatCard({ boat, score, weather, catchData, rank, expanded, onToggle })
           </div>
         </div>
 
-        {/* 実天候 */}
         <div style={{ marginTop: 16, padding: 12, background: C.bg2, border: `1px solid ${C.line}` }}>
           <div className="flex items-center justify-between mb-2">
             <Mono style={{ color: C.aqua }}>LIVE @ {boat.portEn}</Mono>
@@ -955,10 +1060,10 @@ function BoatCard({ boat, score, weather, catchData, rank, expanded, onToggle })
           <div>
             <Mono>RECENT</Mono>
             <div style={{
-              fontFamily: FONT_DISPLAY, fontSize: 18, fontWeight: 800,
+              fontFamily: FONT_DISPLAY, fontSize: 16, fontWeight: 800,
               color: latest ? C.aqua : C.dim, marginTop: 2,
             }}>
-              {latest ? `${latest.fish} ${latest.countMax || latest.countMin}` : '—'}
+              {latest ? `${latest.fish.slice(0, 4)} ${latest.countMax || latest.countMin}` : '—'}
             </div>
           </div>
         </div>
@@ -978,40 +1083,52 @@ function BoatCard({ boat, score, weather, catchData, rank, expanded, onToggle })
 
       {expanded && (
         <div style={{ padding: '0 18px 18px', borderTop: `1px solid ${C.line}`, marginTop: 18 }}>
+          {/* §A RECENT CATCHES */}
           <div style={{ marginTop: 28 }}>
             <div className="flex items-baseline gap-3 mb-3">
               <Mono style={{ color: rankColor }}>§ A</Mono>
               <div>
                 <div style={{ fontFamily: FONT_DISPLAY, fontWeight: 800, fontSize: 22, color: C.text }}>RECENT CATCHES</div>
-                <div style={{ fontFamily: FONT_JP, fontSize: 11, color: C.dim }}>直近の釣果（クロール取得）</div>
+                <div style={{ fontFamily: FONT_JP, fontSize: 11, color: C.dim }}>
+                  {selectedFish.length > 0
+                    ? `直近の釣果 — ${selectedFish.join('・')}`
+                    : '直近の釣果（クロール取得）'}
+                </div>
               </div>
             </div>
-            <CatchChart data={recentCatches} />
-            {recentCatches.slice(0, 5).map((c, i) => (
-              <div key={i} style={{
-                padding: '10px 0', borderTop: i === 0 ? 'none' : `1px solid ${C.line}`,
-                display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-              }}>
-                <div>
-                  <Mono>{c.date}</Mono>
-                  <div style={{ fontFamily: FONT_BODY, fontSize: 13, color: C.text, marginTop: 2 }}>
-                    {c.fish} <span style={{ color: C.dim }}>{c.countMin === c.countMax ? c.countMin : `${c.countMin}-${c.countMax}`}本</span>
-                  </div>
-                </div>
-                <span style={{ fontFamily: FONT_MONO, fontSize: 11, color: C.aqua }}>{c.sizeRange || '—'}</span>
-              </div>
-            ))}
-            {recentCatches.length === 0 && (
+            {filteredCatches.length === 0 ? (
               <div style={{
-                padding: 14, background: C.bg2, border: `1px solid ${C.line}`,
-                fontFamily: FONT_BODY, fontSize: 12, color: C.dim, lineHeight: 1.5,
+                padding: 16, background: C.bg2, border: `1px dashed ${C.line}`,
+                fontFamily: FONT_BODY, fontSize: 12, color: C.dim, textAlign: 'center',
               }}>
-                クロール未実行 or 取得失敗。<br />
-                クローラー実行後にデータが反映されます。
+                {selectedFish.length > 0
+                  ? `${selectedFish.join('・')}の直近釣果データなし`
+                  : 'クロール未実行 or 取得失敗。クローラー実行後に反映されます。'}
               </div>
+            ) : (
+              <>
+                <CatchChart data={filteredCatches} />
+                <div style={{ marginTop: 14 }}>
+                  {filteredCatches.slice(-5).reverse().map((c, i) => (
+                    <div key={i} style={{
+                      padding: '10px 0', borderTop: i === 0 ? 'none' : `1px solid ${C.line}`,
+                      display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                    }}>
+                      <div>
+                        <Mono>{c.date}</Mono>
+                        <div style={{ fontFamily: FONT_BODY, fontSize: 13, color: C.text, marginTop: 2 }}>
+                          {c.fish} <span style={{ color: C.dim }}>{c.countMin === c.countMax ? c.countMin : `${c.countMin}-${c.countMax}`}本</span>
+                        </div>
+                      </div>
+                      <span style={{ fontFamily: FONT_MONO, fontSize: 11, color: C.aqua }}>{c.sizeRange || '—'}</span>
+                    </div>
+                  ))}
+                </div>
+              </>
             )}
           </div>
 
+          {/* §B REGULATIONS */}
           <div style={{ marginTop: 28 }}>
             <div className="flex items-baseline gap-3 mb-3">
               <Mono style={{ color: rankColor }}>§ B</Mono>
@@ -1044,6 +1161,69 @@ function BoatCard({ boat, score, weather, catchData, rank, expanded, onToggle })
               </tbody>
             </table>
           </div>
+
+          {/* §C LEARN MORE — 選択魚種に応じた学習コンテンツ */}
+          <div style={{ marginTop: 28 }}>
+            <div className="flex items-baseline gap-3 mb-3">
+              <Mono style={{ color: rankColor }}>§ C</Mono>
+              <div>
+                <div style={{ fontFamily: FONT_DISPLAY, fontWeight: 800, fontSize: 22, color: C.text }}>LEARN MORE</div>
+                <div style={{ fontFamily: FONT_JP, fontSize: 11, color: C.dim }}>
+                  {selectedFish.length > 0
+                    ? `${selectedFish.join('・')}の釣り方・タックル・動画`
+                    : '関連コンテンツ'}
+                </div>
+              </div>
+            </div>
+            <div className="space-y-2">
+              {learningContent.map((l, i) => {
+                const Icon = l.type === 'video' ? Play : (l.type === 'tackle' ? Compass : BookOpen);
+                const iconColor = l.type === 'video' ? C.coral : (l.type === 'tackle' ? C.sand : C.aqua);
+                return (
+                  <a
+                    key={i}
+                    href={l.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'flex', alignItems: 'center', gap: 12, padding: 12,
+                      background: C.bg2, border: `1px solid ${C.line}`,
+                      color: C.text, textDecoration: 'none',
+                    }}
+                  >
+                    <div style={{
+                      width: 36, height: 36, flexShrink: 0,
+                      background: C.bg, border: `1px solid ${C.line}`,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    }}>
+                      <Icon size={14} color={iconColor} fill={l.type === 'video' ? iconColor : 'none'} />
+                    </div>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ fontFamily: FONT_BODY, fontSize: 13, fontWeight: 600, lineHeight: 1.3 }}>
+                        {l.title}
+                      </div>
+                      <div style={{
+                        fontFamily: FONT_MONO, fontSize: 10, color: C.dim,
+                        marginTop: 2, letterSpacing: '0.05em',
+                        display: 'flex', alignItems: 'center', gap: 6,
+                      }}>
+                        <span>{l.src}</span>
+                        {l.forFish && (
+                          <span style={{
+                            padding: '1px 6px', background: C.line, color: C.text,
+                            fontSize: 9, letterSpacing: '0.1em',
+                          }}>
+                            {l.forFish}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    <ExternalLink size={14} color={C.dim} />
+                  </a>
+                );
+              })}
+            </div>
+          </div>
         </div>
       )}
 
@@ -1061,35 +1241,22 @@ function BoatCard({ boat, score, weather, catchData, rank, expanded, onToggle })
   );
 }
 
-function MiniStat({ label, value, unit }) {
-  return (
-    <div>
-      <Mono>{label}</Mono>
-      <div style={{
-        fontFamily: FONT_DISPLAY, fontWeight: 800,
-        fontSize: 18, color: C.text, lineHeight: 1.1, marginTop: 1,
-      }}>
-        {value}{unit && <span style={{ fontSize: 10, color: C.dim, marginLeft: 1 }}>{unit}</span>}
-      </div>
-    </div>
-  );
-}
-
 function Results({ input, boats, catches, onReset }) {
   const { data: weatherMap, loading } = useWeatherAll(boats, input.date);
 
   const ranked = useMemo(() => {
     return boats
-      .map(b => ({
-        boat: b,
-        catchData: catches[b.id],
-        score: scoreBoat(b, input, weatherMap[b.id], catches[b.id]?.catches),
-        weather: weatherMap[b.id],
-      }))
+      .map(b => {
+        const score = scoreBoat(b, input, weatherMap[b.id], catches[b.id]?.catches);
+        if (score === null) return null;
+        return { boat: b, score, weather: weatherMap[b.id], catchData: catches[b.id] };
+      })
+      .filter(Boolean)
       .sort((a, b) => b.score.total - a.score.total)
       .slice(0, 3);
   }, [input, weatherMap, boats, catches]);
 
+  const noMatch = ranked.length === 0;
   const [openId, setOpenId] = useState(null);
   useEffect(() => {
     if (ranked[0]?.boat.id && !openId) setOpenId(ranked[0].boat.id);
@@ -1131,10 +1298,32 @@ function Results({ input, boats, catches, onReset }) {
         )}
       </div>
 
+      {noMatch && (
+        <div style={{
+          padding: 20, marginBottom: 18,
+          background: C.panel, border: `1px solid ${C.coral}`,
+        }}>
+          <Mono style={{ color: C.coral }}>NO MATCHING SHIPS</Mono>
+          <div style={{
+            fontFamily: FONT_SERIF, fontStyle: 'italic',
+            fontSize: 16, lineHeight: 1.5, color: C.text, marginTop: 8,
+          }}>
+            選択された魚種（{input.fish.join('・')}）を扱う船宿が、登録10軒の中に見つかりませんでした。
+          </div>
+          <div style={{
+            fontFamily: FONT_BODY, fontSize: 13, color: C.dim,
+            marginTop: 12, lineHeight: 1.6,
+          }}>
+            魚種を変えるか、複数選択してみてください。
+          </div>
+        </div>
+      )}
+
       {ranked.map(({ boat, score, weather, catchData }, i) => (
         <BoatCard
           key={boat.id} boat={boat} score={score} weather={weather}
-          catchData={catchData} rank={i + 1}
+          catchData={catchData} selectedFish={input.fish}
+          rank={i + 1}
           expanded={openId === boat.id}
           onToggle={() => setOpenId(openId === boat.id ? null : boat.id)}
         />
@@ -1170,7 +1359,7 @@ function Footer({ lastCrawled }) {
           <Mono>DATA SOURCE</Mono>
           <div style={{ fontFamily: FONT_BODY, fontSize: 12, color: C.dim, marginTop: 4, lineHeight: 1.6 }}>
             Weather: Open-Meteo<br />
-            Catches: 各船宿公式・関東沖釣り情報<br />
+            Catches: 各船宿公式（クロール）<br />
             Last crawled: {lastCrawled ? new Date(lastCrawled).toLocaleString('ja-JP') : '—'}
           </div>
         </div>
@@ -1183,7 +1372,7 @@ function Footer({ lastCrawled }) {
         </div>
       </div>
       <div style={{ height: 1, background: C.line, marginTop: 30, marginBottom: 18 }} />
-      <Mono>© TOKYO BAY OFFSHORE GUIDE — PROTOTYPE v3</Mono>
+      <Mono>© TOKYO BAY OFFSHORE GUIDE — PROTOTYPE v3.1</Mono>
     </footer>
   );
 }
@@ -1239,9 +1428,6 @@ export default function App() {
         <h1 style={{ fontFamily: FONT_DISPLAY, fontSize: 32, marginTop: 12 }}>Data not loaded</h1>
         <p style={{ color: C.dim, fontSize: 14, marginTop: 8 }}>
           /data/boats-master.json が見つかりません: {error}
-        </p>
-        <p style={{ color: C.dim, fontSize: 12, marginTop: 8 }}>
-          ローカル開発時は public/data/ に boats-master.json と catches.json を配置してください。
         </p>
       </div>
     );
