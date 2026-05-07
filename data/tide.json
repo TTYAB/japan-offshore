@@ -1,7 +1,9 @@
 {
-  "_lastFetched": null,
+  "_lastFetched": "2026-05-07T04:34:45.018Z",
   "_version": "1.0.0",
-  "_note": "このファイルは fetch-tide.mjs が更新します。初回は手動またはGitHub Actionsで取得してください。",
   "ports": {},
-  "summary": { "ok": 0, "failed": 0 }
+  "summary": {
+    "ok": 0,
+    "failed": 0
+  }
 }
