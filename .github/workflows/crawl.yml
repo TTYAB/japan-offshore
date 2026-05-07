@@ -1,0 +1,52 @@
+name: Daily Crawl
+
+# 毎日 JST 6:00 (UTC 21:00 前日) に実行 + 手動実行可
+on:
+  schedule:
+    - cron: '0 21 * * *'  # 21:00 UTC = 06:00 JST
+  workflow_dispatch:       # 手動トリガー
+
+permissions:
+  contents: write          # data/catches.json と tide.json への書き込み権限
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: crawler/package.json
+
+      - name: Install crawler deps
+        working-directory: crawler
+        run: npm install
+
+      - name: Run catch crawler
+        working-directory: crawler
+        run: npm run crawl
+        continue-on-error: true   # 釣果クロールが失敗しても潮汐取得は続行
+
+      - name: Run tide fetcher
+        working-directory: crawler
+        run: npm run fetch-tide
+        continue-on-error: true   # 潮汐取得が失敗してもCI失敗にはしない
+
+      - name: Commit updated data
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add data/catches.json data/tide.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: update data $(date +%Y-%m-%d)"
+            git push
+          fi
