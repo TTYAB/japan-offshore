@@ -6,7 +6,9 @@
   "scripts": {
     "crawl": "node crawl.mjs",
     "crawl:one": "node crawl.mjs --boat",
-    "crawl:dry": "node crawl.mjs --dry-run"
+    "crawl:dry": "node crawl.mjs --dry-run",
+    "fetch-tide": "node fetch-tide.mjs",
+    "fetch-tide:dry": "node fetch-tide.mjs --dry-run"
   },
   "dependencies": {
     "cheerio": "^1.0.0",
