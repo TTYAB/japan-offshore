@@ -3,13 +3,13 @@
   "version": "0.3.0",
   "private": true,
   "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "crawl": "cd crawler && npm install && npm run crawl",
-    "crawl:dry": "cd crawler && npm install && npm run crawl:dry",
-    "sync-data": "cp -r data public/"
+"scripts": {
+  "dev": "vite",
+  "build": "vite build",
+  "preview": "vite preview",
+  "crawl": "cd crawler && npm install && npm run crawl",
+  "crawl:dry": "cd crawler && npm install && npm run crawl:dry"
+}
   },
   "dependencies": {
     "lucide-react": "^0.383.0",
