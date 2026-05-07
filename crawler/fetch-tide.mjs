@@ -1,6 +1,6 @@
 // crawler/fetch-tide.mjs
 // 潮汐データ取得スクリプト。
-// - 各船宿の最寄り港について、今日〜7日先までの潮汐情報を tide736.net から取得
+// - 各船宿の最寄り港について、今日〜13日先までの潮汐情報を tide736.net から取得（合計14日分）
 // - 結果を data/tide.json に保存
 // - 失敗しても既存データを保持（壊れない設計）
 
@@ -13,7 +13,7 @@ import { fetchTide } from './lib/tide.mjs';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 
-const DAYS_AHEAD = 7;  // 今日から何日先まで取得するか
+const DAYS_AHEAD = 14;  // 今日から何日先まで取得するか（2週間カバー）
 const CONCURRENCY = 3;
 
 function parseArgs() {
@@ -25,9 +25,16 @@ function parseArgs() {
 
 function getDateRange(daysAhead) {
   const dates = [];
-  const today = new Date();
+  // JST基準で今日を取得（UTCだと日付がずれることがある）
+  const now = new Date();
+  const jstNow = new Date(now.getTime() + 9 * 60 * 60 * 1000);
+  const todayJst = new Date(Date.UTC(
+    jstNow.getUTCFullYear(),
+    jstNow.getUTCMonth(),
+    jstNow.getUTCDate()
+  ));
   for (let i = 0; i < daysAhead; i++) {
-    const d = new Date(today.getTime() + i * 86400000);
+    const d = new Date(todayJst.getTime() + i * 86400000);
     dates.push(d.toISOString().slice(0, 10));
   }
   return dates;
@@ -62,11 +69,13 @@ async function main() {
   }
 
   const dates = getDateRange(DAYS_AHEAD);
+  console.log(`Date range: ${dates[0]} ~ ${dates[dates.length - 1]}`);
   console.log(`Fetching ${dates.length} days × ${portMap.size} ports = ${dates.length * portMap.size} requests`);
 
   const result = {
     _lastFetched: startedAt.toISOString(),
     _version: '1.0.0',
+    _dateRange: { from: dates[0], to: dates[dates.length - 1] },
     ports: { ...(existing.ports || {}) },
     summary: { ok: 0, failed: 0 },
   };
@@ -89,7 +98,7 @@ async function main() {
           if (tideData.ok) {
             result.ports[key].days[date] = tideData;
             result.summary.ok++;
-            console.log(`  [${key}] ${date} OK (${tideData.hourly.length}h, moon=${tideData.moonTitle || '?'})`);
+            console.log(`  [${key}] ${date} OK (${tideData.hourly.length}pts, moon=${tideData.moonTitle || '?'})`);
           } else {
             result.summary.failed++;
             console.error(`  [${key}] ${date} FAIL: ${tideData.error}`);
@@ -102,10 +111,10 @@ async function main() {
       }));
     }
 
-    // 古いデータ（昨日以前）を削除
-    const today = new Date().toISOString().slice(0, 10);
+    // 古いデータ（取得範囲より前）を削除
+    const oldestKept = dates[0];
     for (const day of Object.keys(result.ports[key].days)) {
-      if (day < today) {
+      if (day < oldestKept) {
         delete result.ports[key].days[day];
       }
     }
