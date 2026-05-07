@@ -1,0 +1,18 @@
+{
+  "name": "tokyobay-offshore-crawler",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Crawler for Tokyo Bay offshore boat catch reports",
+  "scripts": {
+    "crawl": "node crawl.mjs",
+    "crawl:one": "node crawl.mjs --boat",
+    "crawl:dry": "node crawl.mjs --dry-run"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "iconv-lite": "^0.6.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

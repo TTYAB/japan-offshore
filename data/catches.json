@@ -1,0 +1,8 @@
+{
+  "_lastCrawled": null,
+  "_crawlerVersion": "1.0.0",
+  "_note": "このファイルはクローラーが上書きします。初回はnpm run crawlで実行してください。",
+  "boats": {},
+  "errors": [],
+  "summary": { "ok": 0, "failed": 0, "total": 0 }
+}
