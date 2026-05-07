@@ -13,15 +13,30 @@
       "portEn": "KIBA",
       "address": "東京都江東区木場6-12-7",
       "homepage": "https://www.yoshinoya-funaduri.com/",
-      "lat": 35.6650,
-      "lng": 139.8050,
+      "lat": 35.665,
+      "lng": 139.805,
       "station": "木場",
       "stationLine": "東京メトロ東西線",
       "shibuyaMin": 35,
       "walkMin": 2,
       "pickup": false,
-      "targets": ["タチウオ", "シーバス", "マゴチ", "アジ", "メバル", "クロアナゴ"],
-      "method": ["bait", "lure"],
+      "tidePort": {
+        "prefcode": 13,
+        "harborcode": 1,
+        "name": "東京"
+      },
+      "targets": [
+        "タチウオ",
+        "シーバス",
+        "マゴチ",
+        "アジ",
+        "メバル",
+        "クロアナゴ"
+      ],
+      "method": [
+        "bait",
+        "lure"
+      ],
       "beginner": 85,
       "rental": true,
       "ice": true,
@@ -60,15 +75,28 @@
       "portEn": "ONAGI-GAWA",
       "address": "東京都江東区/江戸川区エリア",
       "homepage": "https://www.fishing-v.jp/choka/choka_detail.php?s=12074",
-      "lat": 35.6900,
-      "lng": 139.8450,
+      "lat": 35.69,
+      "lng": 139.845,
       "station": "森下",
       "stationLine": "都営新宿線",
       "shibuyaMin": 40,
       "walkMin": 8,
       "pickup": false,
-      "targets": ["タチウオ", "シーバス", "マゴチ", "アジ"],
-      "method": ["bait", "lure"],
+      "tidePort": {
+        "prefcode": 13,
+        "harborcode": 1,
+        "name": "東京"
+      },
+      "targets": [
+        "タチウオ",
+        "シーバス",
+        "マゴチ",
+        "アジ"
+      ],
+      "method": [
+        "bait",
+        "lure"
+      ],
       "beginner": 78,
       "rental": true,
       "ice": true,
@@ -107,15 +135,31 @@
       "portEn": "SHIN-YAMASHITA",
       "address": "神奈川県横浜市中区新山下3-6-19 YCCマリーナ",
       "homepage": "http://www.boatseabass.jp/",
-      "lat": 35.4400,
-      "lng": 139.6650,
+      "lat": 35.44,
+      "lng": 139.665,
       "station": "元町・中華街",
       "stationLine": "みなとみらい線",
       "shibuyaMin": 45,
       "walkMin": 17,
       "pickup": false,
-      "targets": ["シーバス", "クロダイ", "タイラバ", "マゴチ", "サワラ", "青物", "シイラ", "アジ"],
-      "method": ["lure"],
+      "tidePort": {
+        "prefcode": 14,
+        "harborcode": 1,
+        "name": "横浜"
+      },
+      "targets": [
+        "シーバス",
+        "クロダイ",
+        "タイラバ",
+        "マゴチ",
+        "サワラ",
+        "青物",
+        "シイラ",
+        "アジ"
+      ],
+      "method": [
+        "lure"
+      ],
       "beginner": 72,
       "rental": true,
       "ice": false,
@@ -154,15 +198,28 @@
       "portEn": "SHIN-YAMASHITA",
       "address": "神奈川県横浜市中区新山下",
       "homepage": "https://www.fishing-v.jp/choka/detail.php?s=172",
-      "lat": 35.4380,
-      "lng": 139.6620,
+      "lat": 35.438,
+      "lng": 139.662,
       "station": "元町・中華街",
       "stationLine": "みなとみらい線",
       "shibuyaMin": 45,
       "walkMin": 15,
       "pickup": false,
-      "targets": ["タチウオ", "アジ", "シロギス", "カサゴ", "メバル"],
-      "method": ["bait"],
+      "tidePort": {
+        "prefcode": 14,
+        "harborcode": 1,
+        "name": "横浜"
+      },
+      "targets": [
+        "タチウオ",
+        "アジ",
+        "シロギス",
+        "カサゴ",
+        "メバル"
+      ],
+      "method": [
+        "bait"
+      ],
       "beginner": 80,
       "rental": true,
       "ice": true,
@@ -201,16 +258,36 @@
       "portEn": "KAWASAKI-IKEGAMI",
       "address": "神奈川県川崎市川崎区池上町9-12",
       "homepage": "https://www.tsurikou.com/",
-      "lat": 35.5150,
-      "lng": 139.7500,
+      "lat": 35.515,
+      "lng": 139.75,
       "station": "川崎",
       "stationLine": "JR東海道線/京急本線",
       "shibuyaMin": 45,
       "walkMin": 0,
       "pickup": true,
+      "tidePort": {
+        "prefcode": 14,
+        "harborcode": 25,
+        "name": "川崎"
+      },
       "pickupNote": "川崎駅前ルフロン6:25発の無料送迎バス",
-      "targets": ["LTアジ", "シロギス", "タチウオ", "シーバス", "マダイ", "イナダ", "スミイカ", "アナゴ", "マゴチ", "カレイ", "トロサバ"],
-      "method": ["bait", "lure"],
+      "targets": [
+        "LTアジ",
+        "シロギス",
+        "タチウオ",
+        "シーバス",
+        "マダイ",
+        "イナダ",
+        "スミイカ",
+        "アナゴ",
+        "マゴチ",
+        "カレイ",
+        "トロサバ"
+      ],
+      "method": [
+        "bait",
+        "lure"
+      ],
       "beginner": 90,
       "rental": true,
       "ice": true,
@@ -249,15 +326,30 @@
       "portEn": "URAYASU",
       "address": "千葉県浦安市",
       "homepage": "https://www.yoshikyu.com/",
-      "lat": 35.6620,
-      "lng": 139.8950,
+      "lat": 35.662,
+      "lng": 139.895,
       "station": "浦安",
       "stationLine": "東京メトロ東西線",
       "shibuyaMin": 50,
       "walkMin": 12,
       "pickup": false,
-      "targets": ["タチウオ", "LTアジ", "シロギス", "トラフグ", "ショウサイフグ", "アナゴ"],
-      "method": ["bait", "lure"],
+      "tidePort": {
+        "prefcode": 12,
+        "harborcode": 1,
+        "name": "千葉"
+      },
+      "targets": [
+        "タチウオ",
+        "LTアジ",
+        "シロギス",
+        "トラフグ",
+        "ショウサイフグ",
+        "アナゴ"
+      ],
+      "method": [
+        "bait",
+        "lure"
+      ],
       "beginner": 78,
       "rental": true,
       "ice": true,
@@ -296,15 +388,30 @@
       "portEn": "URAYASU NEKOZANE",
       "address": "千葉県浦安市猫実",
       "homepage": "https://www.funayado-iwataya.com/",
-      "lat": 35.6680,
-      "lng": 139.8980,
+      "lat": 35.668,
+      "lng": 139.898,
       "station": "浦安",
       "stationLine": "東京メトロ東西線",
       "shibuyaMin": 50,
       "walkMin": 15,
       "pickup": false,
-      "targets": ["シロギス", "アジ", "タチウオ", "マゴチ", "カワハギ", "マダコ"],
-      "method": ["bait", "lure"],
+      "tidePort": {
+        "prefcode": 12,
+        "harborcode": 1,
+        "name": "千葉"
+      },
+      "targets": [
+        "シロギス",
+        "アジ",
+        "タチウオ",
+        "マゴチ",
+        "カワハギ",
+        "マダコ"
+      ],
+      "method": [
+        "bait",
+        "lure"
+      ],
       "beginner": 82,
       "rental": true,
       "ice": true,
@@ -343,15 +450,28 @@
       "portEn": "KANAZAWA-HAKKEI",
       "address": "神奈川県横浜市金沢区",
       "homepage": "https://bentenya.com/",
-      "lat": 35.3370,
-      "lng": 139.6280,
+      "lat": 35.337,
+      "lng": 139.628,
       "station": "金沢八景",
       "stationLine": "京急本線",
       "shibuyaMin": 65,
       "walkMin": 8,
       "pickup": false,
-      "targets": ["LTアジ", "シロギス", "タチウオ", "カワハギ", "マダコ"],
-      "method": ["bait"],
+      "tidePort": {
+        "prefcode": 14,
+        "harborcode": 5,
+        "name": "横須賀"
+      },
+      "targets": [
+        "LTアジ",
+        "シロギス",
+        "タチウオ",
+        "カワハギ",
+        "マダコ"
+      ],
+      "method": [
+        "bait"
+      ],
       "beginner": 88,
       "rental": true,
       "ice": true,
@@ -397,8 +517,17 @@
       "shibuyaMin": 65,
       "walkMin": 5,
       "pickup": false,
-      "targets": ["LTアジ"],
-      "method": ["bait"],
+      "tidePort": {
+        "prefcode": 14,
+        "harborcode": 5,
+        "name": "横須賀"
+      },
+      "targets": [
+        "LTアジ"
+      ],
+      "method": [
+        "bait"
+      ],
       "beginner": 95,
       "rental": true,
       "ice": true,
@@ -444,9 +573,25 @@
       "shibuyaMin": 70,
       "walkMin": 5,
       "pickup": true,
+      "tidePort": {
+        "prefcode": 14,
+        "harborcode": 5,
+        "name": "横須賀"
+      },
       "pickupNote": "京急金沢八景駅から送迎",
-      "targets": ["アジ", "シロギス", "タチウオ", "カサゴ", "マダコ", "フグ", "ヒラメ", "メバル"],
-      "method": ["bait"],
+      "targets": [
+        "アジ",
+        "シロギス",
+        "タチウオ",
+        "カサゴ",
+        "マダコ",
+        "フグ",
+        "ヒラメ",
+        "メバル"
+      ],
+      "method": [
+        "bait"
+      ],
       "beginner": 88,
       "rental": true,
       "ice": true,
