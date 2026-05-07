@@ -6,10 +6,12 @@ import {
   Train, Car, Search, ChevronDown, ChevronUp, X,
   Wind, Waves, Thermometer, Moon, Star, ExternalLink,
   Compass, Plus, Minus, ArrowUpRight, Check, ArrowRight,
-  Loader2, AlertCircle, Play, BookOpen,
+  Loader2, AlertCircle, Play, BookOpen, Sun, Sunrise, Sunset,
+  TrendingUp, Activity,
 } from 'lucide-react';
 import {
   XAxis, YAxis, ResponsiveContainer, Tooltip, Area, AreaChart,
+  ReferenceLine,
 } from 'recharts';
 
 const C = {
@@ -165,30 +167,40 @@ function pickLearningContent(targetFish) {
 /* ===== データロード（JSON） ===================================== */
 
 function useBoatData() {
-  const [state, setState] = useState({ loading: true, boats: [], catches: {}, error: null, lastCrawled: null });
+  const [state, setState] = useState({
+    loading: true, boats: [], catches: {}, tides: {},
+    error: null, lastCrawled: null, tideLastFetched: null,
+  });
 
   useEffect(() => {
     let cancelled = false;
     async function load() {
       try {
-        const [masterRes, catchesRes] = await Promise.all([
+        const [masterRes, catchesRes, tideRes] = await Promise.all([
           fetch('/data/boats-master.json'),
           fetch('/data/catches.json'),
+          fetch('/data/tide.json'),
         ]);
         if (!masterRes.ok) throw new Error('boats-master.json not found');
         const master = await masterRes.json();
         const catches = catchesRes.ok ? await catchesRes.json() : { boats: {} };
+        const tides = tideRes.ok ? await tideRes.json() : { ports: {} };
         if (cancelled) return;
         setState({
           loading: false,
           boats: master.boats || [],
           catches: catches.boats || {},
+          tides: tides.ports || {},
           lastCrawled: catches._lastCrawled,
+          tideLastFetched: tides._lastFetched,
           error: null,
         });
       } catch (e) {
         if (cancelled) return;
-        setState({ loading: false, boats: [], catches: {}, error: e.message, lastCrawled: null });
+        setState({
+          loading: false, boats: [], catches: {}, tides: {},
+          error: e.message, lastCrawled: null, tideLastFetched: null,
+        });
       }
     }
     load();
@@ -196,6 +208,167 @@ function useBoatData() {
   }, []);
 
   return state;
+}
+
+/* =========================================================================
+   潮汐ヘルパー
+   ========================================================================= */
+
+/**
+ * 船宿の潮汐データを取得（指定日）。
+ */
+function getTideForBoat(boat, tides, date) {
+  if (!boat?.tidePort || !tides) return null;
+  const key = `${boat.tidePort.prefcode}-${boat.tidePort.harborcode}`;
+  return tides[key]?.days?.[date] || null;
+}
+
+/**
+ * 月齢から潮名を推定（fallback用）
+ */
+function estimateMoonTitle(age) {
+  if (age == null) return null;
+  if (age < 1.5 || age > 27.5) return '大潮';
+  if (age >= 13 && age <= 17) return '大潮';
+  if ((age >= 1.5 && age < 5) || (age >= 18 && age < 22)) return '中潮';
+  if ((age >= 5 && age < 8) || (age >= 22 && age < 25)) return '小潮';
+  if (age >= 8 && age < 9.5) return '長潮';
+  if (age >= 9.5 && age < 11) return '若潮';
+  return '中潮';
+}
+
+/**
+ * 月齢から月相絵文字を返す
+ */
+function moonEmoji(age) {
+  if (age == null) return '🌑';
+  if (age < 1.5) return '🌑';
+  if (age < 5.5) return '🌒';
+  if (age < 9.5) return '🌓';
+  if (age < 13) return '🌔';
+  if (age < 16.5) return '🌕';
+  if (age < 20) return '🌖';
+  if (age < 24) return '🌗';
+  if (age < 27.5) return '🌘';
+  return '🌑';
+}
+
+/**
+ * 時刻文字列 "HH:MM" から分(0-1439)を取得
+ */
+function timeToMinutes(str) {
+  if (!str) return null;
+  const [h, m] = str.split(':').map(Number);
+  return h * 60 + m;
+}
+
+/**
+ * 時間帯別の釣れやすさ（活性指数）を計算
+ *
+ * @param {object} tide - 潮汐データ
+ * @param {object} weather - その日の天候 (24時間分でなく代表値)
+ * @returns {Array<{hour, score, factors}>} 24時間分
+ */
+function calcBiteForecast(tide, weather) {
+  if (!tide?.hourly) return [];
+
+  const hourly = tide.hourly;
+  const sunrise = timeToMinutes(tide.sunrise);
+  const sunset = timeToMinutes(tide.sunset);
+  const moonTitle = tide.moonTitle || estimateMoonTitle(tide.moonAge);
+
+  // 月齢ボーナス（潮回り）
+  const moonBonus = {
+    '大潮': 10,
+    '中潮': 5,
+    '小潮': 0,
+    '若潮': -3,
+    '長潮': -5,
+  }[moonTitle] || 0;
+
+  // 風波の減点（その日全体の代表値で計算 — 簡易版）
+  const wind = weather?.windSpeed ?? 0;
+  const wave = weather?.waveHeight ?? 0;
+  let weatherPenalty = 0;
+  if (wind > 12) weatherPenalty -= 25;
+  else if (wind > 8) weatherPenalty -= 15;
+  else if (wind > 5) weatherPenalty -= 5;
+  if (wave > 1.5) weatherPenalty -= 25;
+  else if (wave > 1.0) weatherPenalty -= 12;
+  else if (wave > 0.5) weatherPenalty -= 4;
+
+  const result = [];
+
+  for (let h = 0; h < 24; h++) {
+    const cur = hourly.find(x => x.hour === h);
+    const prev = hourly.find(x => x.hour === ((h + 23) % 24));
+    if (!cur) continue;
+
+    // 潮の動き量（cm/h）— 動きが大きいほど活性が上がる
+    const tideMovement = prev ? Math.abs(cur.cm - prev.cm) : 0;
+    // 0-30cm/h を 0-20点にマップ
+    const tideScore = Math.min(20, tideMovement * 0.7);
+
+    // マズメ補正（日の出・日没±60分）
+    const minutes = h * 60 + 30;  // その時間帯の中央値
+    let mazumeBonus = 0;
+    if (sunrise != null) {
+      const dist = Math.abs(minutes - sunrise);
+      if (dist < 60) mazumeBonus = Math.max(mazumeBonus, 15 * (1 - dist / 60));
+    }
+    if (sunset != null) {
+      const dist = Math.abs(minutes - sunset);
+      if (dist < 60) mazumeBonus = Math.max(mazumeBonus, 12 * (1 - dist / 60));
+    }
+
+    // 夜間ペナルティ（5時前 or 19時以降は活性下がる）
+    let nightPenalty = 0;
+    if (sunrise != null && sunset != null) {
+      if (minutes < sunrise - 90 || minutes > sunset + 90) nightPenalty = -10;
+    }
+
+    const score = Math.max(0, Math.min(100,
+      60                      // ベース
+      + tideScore             // 潮の動き 0-20
+      + mazumeBonus           // マズメ 0-15
+      + moonBonus             // 月齢 -5〜+10
+      + weatherPenalty        // 風波 -25〜0
+      + nightPenalty          // 夜間 0 or -10
+    ));
+
+    result.push({
+      hour: h,
+      score: Math.round(score),
+      tideMovement: Math.round(tideMovement),
+      isMazume: mazumeBonus > 5,
+      isNight: nightPenalty < 0,
+    });
+  }
+
+  return result;
+}
+
+/**
+ * 24時間スコアからピーク時間帯を抽出（連続する高スコアのレンジ）
+ */
+function findPeakWindow(forecast) {
+  if (!forecast?.length) return null;
+  // スコア上位3時間を取り、隣接していればまとめる
+  const sorted = [...forecast].sort((a, b) => b.score - a.score).slice(0, 5);
+  sorted.sort((a, b) => a.hour - b.hour);
+  if (!sorted.length) return null;
+  // 最初の連続グループを返す
+  const group = [sorted[0]];
+  for (let i = 1; i < sorted.length; i++) {
+    if (sorted[i].hour - group[group.length - 1].hour <= 2) {
+      group.push(sorted[i]);
+    } else break;
+  }
+  return {
+    start: group[0].hour,
+    end: group[group.length - 1].hour + 1,
+    avgScore: Math.round(group.reduce((a, x) => a + x.score, 0) / group.length),
+  };
 }
 
 /* ===== 天候API（Open-Meteo） ==================================== */
@@ -944,7 +1117,7 @@ function MiniStat({ label, value, unit }) {
   );
 }
 
-function BoatCard({ boat, score, weather, catchData, selectedFish = [], rank, expanded, onToggle }) {
+function BoatCard({ boat, score, weather, catchData, tideData, selectedFish = [], date, rank, expanded, onToggle }) {
   const rankColors = [C.coral, C.aqua, C.sand];
   const rankColor = rankColors[rank - 1];
   const allCatches = catchData?.catches || [];
@@ -959,6 +1132,9 @@ function BoatCard({ boat, score, weather, catchData, selectedFish = [], rank, ex
 
   const latest = filteredCatches[filteredCatches.length - 1] || allCatches[allCatches.length - 1];
   const learningContent = useMemo(() => pickLearningContent(selectedFish), [selectedFish]);
+  const biteForecast = useMemo(() => calcBiteForecast(tideData, weather), [tideData, weather]);
+  const peakWindow = useMemo(() => findPeakWindow(biteForecast), [biteForecast]);
+  const moonTitle = tideData?.moonTitle || estimateMoonTitle(tideData?.moonAge);
 
   return (
     <article style={{
@@ -1224,6 +1400,215 @@ function BoatCard({ boat, score, weather, catchData, selectedFish = [], rank, ex
               })}
             </div>
           </div>
+
+          {/* §D MOON & TIDE — 月齢・潮汐・日の出入り */}
+          <div style={{ marginTop: 28 }}>
+            <div className="flex items-baseline gap-3 mb-3">
+              <Mono style={{ color: rankColor }}>§ D</Mono>
+              <div>
+                <div style={{ fontFamily: FONT_DISPLAY, fontWeight: 800, fontSize: 22, color: C.text }}>MOON & TIDE</div>
+                <div style={{ fontFamily: FONT_JP, fontSize: 11, color: C.dim }}>
+                  {tideData ? `${date} · ${tideData.sunrise || '—'} ↗ ${tideData.sunset || '—'} ↘` : '潮汐データ未取得'}
+                </div>
+              </div>
+            </div>
+
+            {!tideData ? (
+              <div style={{
+                padding: 16, background: C.bg2, border: `1px dashed ${C.line}`,
+                fontFamily: FONT_BODY, fontSize: 12, color: C.dim, textAlign: 'center',
+              }}>
+                潮汐データはまだ取得されていません。GitHub Actionsの実行後に反映されます。
+              </div>
+            ) : (
+              <>
+                {/* 月齢・潮回りカード */}
+                <div className="grid grid-cols-3 gap-3" style={{ marginBottom: 14 }}>
+                  <div style={{ padding: 12, background: C.bg2, border: `1px solid ${C.line}` }}>
+                    <Mono style={{ color: C.aqua }}>MOON</Mono>
+                    <div style={{
+                      fontFamily: FONT_DISPLAY, fontSize: 32, fontWeight: 800,
+                      color: C.text, lineHeight: 1, marginTop: 4,
+                    }}>
+                      {moonEmoji(tideData.moonAge)}
+                    </div>
+                    <div style={{ fontFamily: FONT_MONO, fontSize: 10, color: C.dim, marginTop: 4 }}>
+                      AGE {tideData.moonAge != null ? tideData.moonAge.toFixed(1) : '—'}
+                    </div>
+                  </div>
+                  <div style={{ padding: 12, background: C.bg2, border: `1px solid ${C.line}` }}>
+                    <Mono style={{ color: C.aqua }}>潮回り</Mono>
+                    <div style={{
+                      fontFamily: FONT_DISPLAY, fontSize: 22, fontWeight: 800,
+                      color: moonTitle === '大潮' ? C.coral : C.text,
+                      lineHeight: 1, marginTop: 6,
+                    }}>
+                      {moonTitle || '—'}
+                    </div>
+                  </div>
+                  <div style={{ padding: 12, background: C.bg2, border: `1px solid ${C.line}` }}>
+                    <Mono style={{ color: C.aqua }}>SUN</Mono>
+                    <div style={{ fontFamily: FONT_MONO, fontSize: 13, color: C.text, marginTop: 4, lineHeight: 1.3 }}>
+                      ↗ {tideData.sunrise || '—'}
+                    </div>
+                    <div style={{ fontFamily: FONT_MONO, fontSize: 13, color: C.text, lineHeight: 1.3 }}>
+                      ↘ {tideData.sunset || '—'}
+                    </div>
+                  </div>
+                </div>
+
+                {/* タイドグラフ */}
+                <div style={{ height: 120, background: C.bg2, border: `1px solid ${C.line}`, padding: '10px 6px 4px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0 8px 4px' }}>
+                    <Mono style={{ color: C.aqua }}>TIDE GRAPH</Mono>
+                    <Mono>cm · {tideData.hourly?.length || 0}h</Mono>
+                  </div>
+                  <ResponsiveContainer width="100%" height="80%">
+                    <AreaChart data={(tideData.hourly || []).map(h => ({
+                      hour: h.hour, cm: h.cm,
+                    }))} margin={{ top: 0, right: 4, bottom: 0, left: 0 }}>
+                      <defs>
+                        <linearGradient id={`tideGrad-${boat.id}`} x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor={C.aqua} stopOpacity={0.4} />
+                          <stop offset="100%" stopColor={C.aqua} stopOpacity={0} />
+                        </linearGradient>
+                      </defs>
+                      <XAxis dataKey="hour" tick={{ fill: C.dim, fontSize: 9, fontFamily: FONT_MONO }}
+                        axisLine={{ stroke: C.line }} tickLine={false}
+                        ticks={[0, 6, 12, 18, 23]} />
+                      <YAxis hide />
+                      <Tooltip cursor={{ stroke: C.coral, strokeWidth: 1 }}
+                        contentStyle={{ background: C.bg, border: `1px solid ${C.line}`, fontFamily: FONT_MONO, fontSize: 11 }}
+                        labelStyle={{ color: C.dim }}
+                        itemStyle={{ color: C.aqua }}
+                        formatter={(v) => [`${v} cm`, '潮位']}
+                        labelFormatter={(h) => `${h}:00`}
+                      />
+                      <Area type="monotone" dataKey="cm" stroke={C.aqua} strokeWidth={1.5}
+                        fill={`url(#tideGrad-${boat.id})`} />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                </div>
+
+                {/* 満干潮テーブル */}
+                <div className="grid grid-cols-2 gap-3" style={{ marginTop: 12 }}>
+                  <div>
+                    <Mono style={{ color: C.coral }}>満潮</Mono>
+                    {(tideData.highTides || []).length === 0 ? (
+                      <div style={{ fontFamily: FONT_MONO, fontSize: 11, color: C.dim, marginTop: 4 }}>—</div>
+                    ) : (
+                      tideData.highTides.map((t, i) => (
+                        <div key={i} style={{ fontFamily: FONT_MONO, fontSize: 13, color: C.text, marginTop: 4 }}>
+                          {t.time} <span style={{ color: C.dim }}>{t.cm}cm</span>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                  <div>
+                    <Mono style={{ color: C.aqua }}>干潮</Mono>
+                    {(tideData.lowTides || []).length === 0 ? (
+                      <div style={{ fontFamily: FONT_MONO, fontSize: 11, color: C.dim, marginTop: 4 }}>—</div>
+                    ) : (
+                      tideData.lowTides.map((t, i) => (
+                        <div key={i} style={{ fontFamily: FONT_MONO, fontSize: 13, color: C.text, marginTop: 4 }}>
+                          {t.time} <span style={{ color: C.dim }}>{t.cm}cm</span>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+
+          {/* §E BITE FORECAST — 時間帯別釣れやすさ */}
+          <div style={{ marginTop: 28 }}>
+            <div className="flex items-baseline gap-3 mb-3">
+              <Mono style={{ color: rankColor }}>§ E</Mono>
+              <div>
+                <div style={{ fontFamily: FONT_DISPLAY, fontWeight: 800, fontSize: 22, color: C.text }}>BITE FORECAST</div>
+                <div style={{ fontFamily: FONT_JP, fontSize: 11, color: C.dim }}>
+                  時間帯別の釣れやすさ（環境スコア）
+                </div>
+              </div>
+            </div>
+
+            {biteForecast.length === 0 ? (
+              <div style={{
+                padding: 16, background: C.bg2, border: `1px dashed ${C.line}`,
+                fontFamily: FONT_BODY, fontSize: 12, color: C.dim, textAlign: 'center',
+              }}>
+                潮汐データが取得され次第、時間帯予測が表示されます。
+              </div>
+            ) : (
+              <>
+                {/* ピーク窓 */}
+                {peakWindow && (
+                  <div style={{
+                    padding: 14, background: C.panel,
+                    border: `1px solid ${C.coral}`, marginBottom: 12,
+                    display: 'flex', alignItems: 'center', gap: 12,
+                  }}>
+                    <TrendingUp size={20} color={C.coral} />
+                    <div style={{ flex: 1 }}>
+                      <Mono style={{ color: C.coral }}>PEAK WINDOW</Mono>
+                      <div style={{
+                        fontFamily: FONT_DISPLAY, fontWeight: 800, fontSize: 26,
+                        color: C.text, lineHeight: 1, marginTop: 2,
+                      }}>
+                        {String(peakWindow.start).padStart(2, '0')}:00 — {String(peakWindow.end).padStart(2, '0')}:00
+                      </div>
+                      <div style={{ fontFamily: FONT_JP, fontSize: 11, color: C.dim, marginTop: 4 }}>
+                        平均スコア {peakWindow.avgScore} / 環境的に有利な時間帯
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* 24時間グラフ */}
+                <div style={{ height: 160, background: C.bg2, border: `1px solid ${C.line}`, padding: '10px 6px 4px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0 8px 4px' }}>
+                    <Mono style={{ color: C.coral }}>HOURLY ACTIVITY</Mono>
+                    <Mono>0–100</Mono>
+                  </div>
+                  <ResponsiveContainer width="100%" height="80%">
+                    <AreaChart data={biteForecast} margin={{ top: 0, right: 4, bottom: 0, left: 0 }}>
+                      <defs>
+                        <linearGradient id={`biteGrad-${boat.id}`} x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor={C.coral} stopOpacity={0.6} />
+                          <stop offset="100%" stopColor={C.coral} stopOpacity={0} />
+                        </linearGradient>
+                      </defs>
+                      <XAxis dataKey="hour" tick={{ fill: C.dim, fontSize: 9, fontFamily: FONT_MONO }}
+                        axisLine={{ stroke: C.line }} tickLine={false}
+                        ticks={[0, 6, 12, 18, 23]} />
+                      <YAxis hide domain={[0, 100]} />
+                      <Tooltip cursor={{ stroke: C.coral, strokeWidth: 1 }}
+                        contentStyle={{ background: C.bg, border: `1px solid ${C.line}`, fontFamily: FONT_MONO, fontSize: 11 }}
+                        labelStyle={{ color: C.dim }}
+                        itemStyle={{ color: C.coral }}
+                        formatter={(v) => [`${v} / 100`, '活性']}
+                        labelFormatter={(h) => `${h}:00`}
+                      />
+                      <ReferenceLine y={70} stroke={C.aqua} strokeDasharray="2 2" strokeOpacity={0.5} />
+                      <Area type="monotone" dataKey="score" stroke={C.coral} strokeWidth={1.5}
+                        fill={`url(#biteGrad-${boat.id})`} />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                </div>
+
+                {/* スコア要因の凡例 */}
+                <div style={{
+                  padding: 10, background: C.bg2, border: `1px solid ${C.line}`,
+                  marginTop: 10,
+                  fontFamily: FONT_MONO, fontSize: 10, color: C.dim, lineHeight: 1.6,
+                }}>
+                  ベース 60 + 潮の動き(0-20) + マズメ(0-15) + 潮回り({moonTitle === '大潮' ? '+10' : moonTitle === '中潮' ? '+5' : moonTitle === '小潮' ? '0' : '-5'}) - 風波({weather?.windSpeed > 8 || weather?.waveHeight > 1 ? '減点' : '0'})<br />
+                  ※ あくまで環境的指標。実際の釣果は魚の活性、ポイント、腕など多くの要因に依存します。
+                </div>
+              </>
+            )}
+          </div>
         </div>
       )}
 
@@ -1241,7 +1626,7 @@ function BoatCard({ boat, score, weather, catchData, selectedFish = [], rank, ex
   );
 }
 
-function Results({ input, boats, catches, onReset }) {
+function Results({ input, boats, catches, tides, onReset }) {
   const { data: weatherMap, loading } = useWeatherAll(boats, input.date);
 
   const ranked = useMemo(() => {
@@ -1322,7 +1707,10 @@ function Results({ input, boats, catches, onReset }) {
       {ranked.map(({ boat, score, weather, catchData }, i) => (
         <BoatCard
           key={boat.id} boat={boat} score={score} weather={weather}
-          catchData={catchData} selectedFish={input.fish}
+          catchData={catchData}
+          tideData={getTideForBoat(boat, tides, input.date)}
+          selectedFish={input.fish}
+          date={input.date}
           rank={i + 1}
           expanded={openId === boat.id}
           onToggle={() => setOpenId(openId === boat.id ? null : boat.id)}
@@ -1380,7 +1768,7 @@ function Footer({ lastCrawled }) {
 /* ===== APP ====================================================== */
 
 export default function App() {
-  const { loading, boats, catches, error, lastCrawled } = useBoatData();
+  const { loading, boats, catches, tides, error, lastCrawled, tideLastFetched } = useBoatData();
   const todayStr = new Date().toISOString().slice(0, 10);
 
   const [date, setDate] = useState(todayStr);
@@ -1495,7 +1883,7 @@ export default function App() {
         </main>
 
         <div id="results">
-          {submitted && <Results input={input} boats={boats} catches={catches} onReset={handleReset} />}
+          {submitted && <Results input={input} boats={boats} catches={catches} tides={tides} onReset={handleReset} />}
         </div>
 
         <Footer lastCrawled={lastCrawled} />
