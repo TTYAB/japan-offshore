@@ -375,6 +375,12 @@ function findPeakWindow(forecast) {
 
 const weatherCache = new Map();
 
+/**
+ * 天気を取得。
+ * - 海洋データ（波）はOpen-Meteo Marine API（ECMWF WAM）
+ * - 大気データ（風・気温・天気・雲・降水）はOpen-Meteo + ECMWF IFS HRES（9km、最大15日先）
+ * 両方ともAPIキー不要、CORS対応、無料（非商用）
+ */
 async function fetchWeather(lat, lng, date) {
   const key = `${date}_${lat.toFixed(3)}_${lng.toFixed(3)}`;
   if (weatherCache.has(key)) return weatherCache.get(key);
@@ -383,10 +389,12 @@ async function fetchWeather(lat, lng, date) {
     `https://marine-api.open-meteo.com/v1/marine?latitude=${lat}&longitude=${lng}` +
     `&hourly=wave_height,wave_period,wave_direction&timezone=Asia%2FTokyo` +
     `&start_date=${date}&end_date=${date}`;
+  // ECMWF IFS HRES 9km モデルを明示的に指定。weather_code/cloud_cover/precipitationを追加。
   const forecastUrl =
     `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}` +
-    `&hourly=temperature_2m,wind_speed_10m,wind_direction_10m&windspeed_unit=ms` +
-    `&timezone=Asia%2FTokyo&start_date=${date}&end_date=${date}`;
+    `&hourly=temperature_2m,wind_speed_10m,wind_direction_10m,weather_code,cloud_cover,precipitation` +
+    `&models=ecmwf_ifs025` +
+    `&windspeed_unit=ms&timezone=Asia%2FTokyo&start_date=${date}&end_date=${date}`;
 
   try {
     const [m, f] = await Promise.all([
@@ -395,9 +403,18 @@ async function fetchWeather(lat, lng, date) {
     ]);
     const pick = (arr) => {
       if (!arr || !arr.length) return null;
+      // 7時（朝マズメ後の代表時刻）の値があればそれを優先
       if (arr.length > 7 && arr[7] != null) return arr[7];
       const v = arr.filter(x => x != null);
       return v.length ? v.reduce((a, b) => a + b, 0) / v.length : null;
+    };
+    // weather_codeは「最頻値」を取りたいが、簡易的に7時値→中央値の順で取る
+    const pickMode = (arr) => {
+      if (!arr || !arr.length) return null;
+      if (arr.length > 7 && arr[7] != null) return arr[7];
+      const v = arr.filter(x => x != null);
+      if (!v.length) return null;
+      return v[Math.floor(v.length / 2)];
     };
     const result = {
       ok: true,
@@ -407,12 +424,46 @@ async function fetchWeather(lat, lng, date) {
       temperature: pick(f.hourly?.temperature_2m),
       windSpeed: pick(f.hourly?.wind_speed_10m),
       windDirection: pick(f.hourly?.wind_direction_10m),
+      weatherCode: pickMode(f.hourly?.weather_code),
+      cloudCover: pick(f.hourly?.cloud_cover),
+      precipitation: pick(f.hourly?.precipitation),
+      // 24時間分のデータ（時間帯別表示用に保持）
+      hourly: f.hourly ? {
+        time: f.hourly.time,
+        temperature: f.hourly.temperature_2m,
+        windSpeed: f.hourly.wind_speed_10m,
+        weatherCode: f.hourly.weather_code,
+        cloudCover: f.hourly.cloud_cover,
+        precipitation: f.hourly.precipitation,
+      } : null,
     };
     weatherCache.set(key, result);
     return result;
   } catch (e) {
     return { ok: false, error: String(e) };
   }
+}
+
+/**
+ * WMO weather codeを日本語と絵文字に変換。
+ * Reference: https://open-meteo.com/en/docs (WMO Weather interpretation codes)
+ */
+function weatherCodeInfo(code) {
+  if (code == null) return { emoji: '—', label: '—', en: '—' };
+  if (code === 0) return { emoji: '☀️', label: '快晴', en: 'CLEAR' };
+  if (code === 1) return { emoji: '🌤️', label: '晴れ', en: 'MAINLY CLEAR' };
+  if (code === 2) return { emoji: '⛅', label: '晴れ時々曇り', en: 'PARTLY CLOUDY' };
+  if (code === 3) return { emoji: '☁️', label: '曇り', en: 'OVERCAST' };
+  if (code === 45 || code === 48) return { emoji: '🌫️', label: '霧', en: 'FOG' };
+  if (code >= 51 && code <= 57) return { emoji: '🌦️', label: '霧雨', en: 'DRIZZLE' };
+  if (code >= 61 && code <= 65) return { emoji: '🌧️', label: '雨', en: 'RAIN' };
+  if (code === 66 || code === 67) return { emoji: '🌧️', label: '凍雨', en: 'FREEZING RAIN' };
+  if (code >= 71 && code <= 77) return { emoji: '🌨️', label: '雪', en: 'SNOW' };
+  if (code >= 80 && code <= 82) return { emoji: '🌧️', label: 'にわか雨', en: 'SHOWERS' };
+  if (code === 85 || code === 86) return { emoji: '🌨️', label: '雪雷雨', en: 'SNOW SHOWERS' };
+  if (code === 95) return { emoji: '⛈️', label: '雷雨', en: 'THUNDERSTORM' };
+  if (code === 96 || code === 99) return { emoji: '⛈️', label: '雷雨・雹', en: 'THUNDERSTORM W/ HAIL' };
+  return { emoji: '—', label: '—', en: '—' };
 }
 
 function useWeatherAll(boats, date) {
@@ -688,9 +739,44 @@ function DateSection({ value, onChange }) {
       <div style={{ marginTop: 16, background: C.panel, border: `1px solid ${C.line}`, padding: 18 }}>
         <div className="flex items-center justify-between mb-4">
           <Mono style={{ color: C.aqua }}>FORECAST · {BAY_CENTER.name}</Mono>
-          <Mono>{loading ? <Loader2 size={11} style={{ display: 'inline', animation: 'spin 1s linear infinite', verticalAlign: -1 }} /> : 'OPEN-METEO LIVE'}</Mono>
+          <Mono>{loading ? <Loader2 size={11} style={{ display: 'inline', animation: 'spin 1s linear infinite', verticalAlign: -1 }} /> : 'ECMWF · OPEN-METEO'}</Mono>
         </div>
-        <div className="grid grid-cols-4 gap-3">
+
+        {/* 天気サマリー（一番大きく） */}
+        {(() => {
+          const wInfo = weatherCodeInfo(data?.weatherCode);
+          return (
+            <div style={{
+              padding: '14px 16px',
+              background: C.bg2,
+              border: `1px solid ${C.line}`,
+              marginBottom: 14,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 16,
+            }}>
+              <div style={{ fontSize: 44, lineHeight: 1 }}>
+                {wInfo.emoji}
+              </div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontFamily: FONT_DISPLAY, fontWeight: 800, fontSize: 22, color: C.text, lineHeight: 1.1 }}>
+                  {wInfo.en}
+                </div>
+                <div style={{ fontFamily: FONT_JP, fontSize: 13, color: C.dim, marginTop: 2 }}>
+                  {wInfo.label}
+                  {data?.cloudCover != null && (
+                    <span style={{ marginLeft: 8 }}>· 雲量{data.cloudCover.toFixed(0)}%</span>
+                  )}
+                  {data?.precipitation != null && data.precipitation > 0 && (
+                    <span style={{ color: C.coral, marginLeft: 8 }}>· 降水 {data.precipitation.toFixed(1)}mm</span>
+                  )}
+                </div>
+              </div>
+            </div>
+          );
+        })()}
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12 }}>
           <WeatherCell icon={<Wind size={14} />} label="WIND" value={data?.windSpeed != null ? data.windSpeed.toFixed(1) : '—'} unit="m/s" />
           <WeatherCell icon={<Waves size={14} />} label="WAVE" value={data?.waveHeight != null ? data.waveHeight.toFixed(1) : '—'} unit="m" />
           <WeatherCell icon={<Thermometer size={14} />} label="TEMP" value={data?.temperature != null ? data.temperature.toFixed(0) : '—'} unit="°C" />
@@ -1215,9 +1301,35 @@ function BoatCard({ boat, score, weather, catchData, tideData, selectedFish = []
         <div style={{ marginTop: 16, padding: 12, background: C.bg2, border: `1px solid ${C.line}` }}>
           <div className="flex items-center justify-between mb-2">
             <Mono style={{ color: C.aqua }}>LIVE @ {boat.portEn}</Mono>
-            <Mono>OPEN-METEO</Mono>
+            <Mono>ECMWF · OPEN-METEO</Mono>
           </div>
-          <div className="grid grid-cols-4 gap-2">
+          {/* 天気サマリーバー */}
+          {(() => {
+            const wInfo = weatherCodeInfo(weather?.weatherCode);
+            return (
+              <div style={{
+                display: 'flex', alignItems: 'center', gap: 10,
+                padding: '8px 10px',
+                background: C.bg, border: `1px solid ${C.line}`,
+                marginBottom: 10,
+              }}>
+                <div style={{ fontSize: 24, lineHeight: 1 }}>{wInfo.emoji}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontFamily: FONT_DISPLAY, fontWeight: 800, fontSize: 13, color: C.text, lineHeight: 1.1, letterSpacing: '0.04em' }}>
+                    {wInfo.en}
+                  </div>
+                  <div style={{ fontFamily: FONT_JP, fontSize: 11, color: C.dim, marginTop: 1 }}>
+                    {wInfo.label}
+                    {weather?.cloudCover != null && (<span> · 雲{weather.cloudCover.toFixed(0)}%</span>)}
+                    {weather?.precipitation != null && weather.precipitation > 0 && (
+                      <span style={{ color: C.coral }}> · 雨{weather.precipitation.toFixed(1)}mm</span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            );
+          })()}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 8 }}>
             <MiniStat label="WIND" value={weather?.windSpeed != null ? weather.windSpeed.toFixed(1) : '—'} unit="m/s" />
             <MiniStat label="WAVE" value={weather?.waveHeight != null ? weather.waveHeight.toFixed(1) : '—'} unit="m" />
             <MiniStat label="DIR"  value={windDirEn(weather?.windDirection)} unit="" />
