@@ -393,6 +393,7 @@ async function fetchWeather(lat, lng, date) {
   const forecastUrl =
     `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}` +
     `&hourly=temperature_2m,wind_speed_10m,wind_direction_10m,weather_code,cloud_cover,precipitation` +
+    `&daily=temperature_2m_max,temperature_2m_min` +
     `&models=ecmwf_ifs025` +
     `&windspeed_unit=ms&timezone=Asia%2FTokyo&start_date=${date}&end_date=${date}`;
 
@@ -422,6 +423,8 @@ async function fetchWeather(lat, lng, date) {
       wavePeriod: pick(m.hourly?.wave_period),
       waveDirection: pick(m.hourly?.wave_direction),
       temperature: pick(f.hourly?.temperature_2m),
+      temperatureMax: f.daily?.temperature_2m_max?.[0] ?? null,
+      temperatureMin: f.daily?.temperature_2m_min?.[0] ?? null,
       windSpeed: pick(f.hourly?.wind_speed_10m),
       windDirection: pick(f.hourly?.wind_direction_10m),
       weatherCode: pickMode(f.hourly?.weather_code),
@@ -779,7 +782,13 @@ function DateSection({ value, onChange }) {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12 }}>
           <WeatherCell icon={<Wind size={14} />} label="WIND" value={data?.windSpeed != null ? data.windSpeed.toFixed(1) : '—'} unit="m/s" />
           <WeatherCell icon={<Waves size={14} />} label="WAVE" value={data?.waveHeight != null ? data.waveHeight.toFixed(1) : '—'} unit="m" />
-          <WeatherCell icon={<Thermometer size={14} />} label="TEMP" value={data?.temperature != null ? data.temperature.toFixed(0) : '—'} unit="°C" />
+          <WeatherCellRange
+            icon={<Thermometer size={14} />}
+            label="TEMP"
+            max={data?.temperatureMax}
+            min={data?.temperatureMin}
+            fallback={data?.temperature}
+          />
           <WeatherCell icon={<Moon size={14} />} label="WAVE T" value={data?.wavePeriod != null ? data.wavePeriod.toFixed(0) : '—'} unit="s" />
         </div>
         <div className="mt-4 flex items-center gap-3">
@@ -817,6 +826,45 @@ function WeatherCell({ icon, label, value, unit }) {
       }}>
         {value}<span style={{ fontSize: 12, color: C.dim, marginLeft: 2 }}>{unit}</span>
       </div>
+    </div>
+  );
+}
+
+/**
+ * 最高/最低気温の併記セル。両方ある時はmax/minを縦並び、無い時はfallbackを単独表示。
+ */
+function WeatherCellRange({ icon, label, max, min, fallback }) {
+  const hasRange = max != null && min != null;
+  return (
+    <div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 4, color: C.dim }}>
+        {icon}<Mono>{label}</Mono>
+      </div>
+      {hasRange ? (
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 6, marginTop: 2 }}>
+          <span style={{
+            fontFamily: FONT_DISPLAY, fontWeight: 800,
+            fontSize: 22, color: C.coral, lineHeight: 1.1,
+          }}>
+            {max.toFixed(0)}<span style={{ fontSize: 10, color: C.dim, marginLeft: 1 }}>°</span>
+          </span>
+          <span style={{ color: C.dim2, fontSize: 12 }}>/</span>
+          <span style={{
+            fontFamily: FONT_DISPLAY, fontWeight: 800,
+            fontSize: 22, color: C.aqua, lineHeight: 1.1,
+          }}>
+            {min.toFixed(0)}<span style={{ fontSize: 10, color: C.dim, marginLeft: 1 }}>°</span>
+          </span>
+        </div>
+      ) : (
+        <div style={{
+          fontFamily: FONT_DISPLAY, fontWeight: 800,
+          fontSize: 28, color: C.text, lineHeight: 1.1, marginTop: 2,
+        }}>
+          {fallback != null ? fallback.toFixed(0) : '—'}
+          <span style={{ fontSize: 12, color: C.dim, marginLeft: 2 }}>°C</span>
+        </div>
+      )}
     </div>
   );
 }
@@ -1212,6 +1260,40 @@ function MiniStat({ label, value, unit }) {
   );
 }
 
+/**
+ * 最高/最低気温の併記ミニセル。スペースが狭いのでコンパクトに max°/min° 表示。
+ */
+function MiniStatRange({ label, max, min, fallback }) {
+  const hasRange = max != null && min != null;
+  return (
+    <div>
+      <Mono>{label}</Mono>
+      {hasRange ? (
+        <div style={{
+          display: 'flex', alignItems: 'baseline', gap: 3,
+          marginTop: 1, lineHeight: 1.1,
+        }}>
+          <span style={{ fontFamily: FONT_DISPLAY, fontWeight: 800, fontSize: 16, color: C.coral }}>
+            {max.toFixed(0)}°
+          </span>
+          <span style={{ color: C.dim2, fontSize: 11 }}>/</span>
+          <span style={{ fontFamily: FONT_DISPLAY, fontWeight: 800, fontSize: 16, color: C.aqua }}>
+            {min.toFixed(0)}°
+          </span>
+        </div>
+      ) : (
+        <div style={{
+          fontFamily: FONT_DISPLAY, fontWeight: 800,
+          fontSize: 18, color: C.text, lineHeight: 1.1, marginTop: 1,
+        }}>
+          {fallback != null ? fallback.toFixed(0) : '—'}
+          <span style={{ fontSize: 10, color: C.dim, marginLeft: 1 }}>°C</span>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function BoatCard({ boat, score, weather, catchData, tideData, selectedFish = [], date, rank, expanded, onToggle }) {
   const rankColors = [C.coral, C.aqua, C.sand];
   const rankColor = rankColors[rank - 1];
@@ -1333,7 +1415,12 @@ function BoatCard({ boat, score, weather, catchData, tideData, selectedFish = []
             <MiniStat label="WIND" value={weather?.windSpeed != null ? weather.windSpeed.toFixed(1) : '—'} unit="m/s" />
             <MiniStat label="WAVE" value={weather?.waveHeight != null ? weather.waveHeight.toFixed(1) : '—'} unit="m" />
             <MiniStat label="DIR"  value={windDirEn(weather?.windDirection)} unit="" />
-            <MiniStat label="TEMP" value={weather?.temperature != null ? weather.temperature.toFixed(0) : '—'} unit="°C" />
+            <MiniStatRange
+              label="TEMP"
+              max={weather?.temperatureMax}
+              min={weather?.temperatureMin}
+              fallback={weather?.temperature}
+            />
           </div>
         </div>
 
