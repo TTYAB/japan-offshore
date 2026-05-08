@@ -1,34 +1,42 @@
 {
-  "_lastCrawled": "2026-05-07T21:43:19.647Z",
+  "_lastCrawled": "2026-05-08T21:45:10.998Z",
   "_crawlerVersion": "1.0.0",
   "boats": {
     "sawaura": {
-      "lastSuccess": "2026-05-07T21:43:20.636Z",
+      "lastSuccess": "2026-05-08T21:45:11.877Z",
       "catches": [],
       "source": "https://www.fishing-v.jp/choka/choka_detail.php?s=12074",
       "parser": "fishing-v"
     },
     "watanabe": {
-      "lastSuccess": "2026-05-07T21:43:21.240Z",
+      "lastSuccess": "2026-05-08T21:45:12.252Z",
       "catches": [],
       "source": "https://www.fishing-v.jp/choka/detail.php?s=172",
       "parser": "fishing-v"
     },
     "fukagawa-yoshinoya": {
-      "lastSuccess": "2026-05-07T21:43:21.145Z",
+      "lastSuccess": "2026-05-08T21:45:12.435Z",
       "catches": [],
       "source": "https://www.chowari.jp/ship/00271/catch/",
       "parser": "chowari"
     },
     "tsurikou": {
-      "lastSuccess": "2026-05-07T21:43:21.886Z",
+      "lastSuccess": "2026-05-08T21:45:12.991Z",
       "catches": [],
       "source": "https://www.marines-net.co.jp/inn/tsurikouhonke",
       "parser": "marines-net"
     },
     "icfc": {
-      "lastSuccess": "2026-05-07T21:43:21.864Z",
+      "lastSuccess": "2026-05-08T21:45:13.104Z",
       "catches": [
+        {
+          "date": "2026-05-08",
+          "fish": "シーバス",
+          "countMin": 1,
+          "countMax": 1,
+          "sizeRange": null,
+          "comment": "5/8 シーバスロング便 宇佐美 シーバス狙いで出船！まずはジギングで１本ゲット！お次もジギングで連発！バクバクでした！ジギングで41キャッチ！ポイント移動してキャスティング！まずはサゴシがヒット！続…"
+        },
         {
           "date": "2026-05-05",
           "fish": "マゴチ",
@@ -58,13 +66,13 @@
       "parser": "rss"
     },
     "iwataya": {
-      "lastSuccess": "2026-05-07T21:43:23.051Z",
+      "lastSuccess": "2026-05-08T21:45:14.301Z",
       "catches": [],
       "source": "https://www.funayado-iwataya.com/",
       "parser": "generic"
     },
     "bentenya": {
-      "lastSuccess": "2026-05-07T21:43:23.257Z",
+      "lastSuccess": "2026-05-08T21:45:14.666Z",
       "catches": [],
       "source": "https://bentenya.com/",
       "parser": "generic"
@@ -73,7 +81,9 @@
       "lastSuccess": "2026-05-07T21:43:23.677Z",
       "catches": [],
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-yoshikyu.htm",
-      "parser": "gyo-ne-jp"
+      "parser": "gyo-ne-jp",
+      "lastError": "fetch failed",
+      "lastErrorAt": "2026-05-08T21:45:23.572Z"
     },
     "yonemoto": {
       "lastSuccess": "2026-05-07T21:43:23.692Z",
@@ -88,19 +98,36 @@
         }
       ],
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-yonemoto.htm",
-      "parser": "gyo-ne-jp"
+      "parser": "gyo-ne-jp",
+      "lastError": "fetch failed",
+      "lastErrorAt": "2026-05-08T21:45:23.572Z"
     },
     "tadahiko": {
       "lastSuccess": "2026-05-07T21:43:24.027Z",
       "catches": [],
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-tadahiko.htm",
-      "parser": "gyo-ne-jp"
+      "parser": "gyo-ne-jp",
+      "lastError": "fetch failed",
+      "lastErrorAt": "2026-05-08T21:45:23.571Z"
     }
   },
-  "errors": [],
+  "errors": [
+    {
+      "boatId": "tadahiko",
+      "error": "fetch failed"
+    },
+    {
+      "boatId": "yonemoto",
+      "error": "fetch failed"
+    },
+    {
+      "boatId": "yoshikyu",
+      "error": "fetch failed"
+    }
+  ],
   "summary": {
-    "ok": 10,
-    "failed": 0,
+    "ok": 7,
+    "failed": 3,
     "total": 10
   }
 }
