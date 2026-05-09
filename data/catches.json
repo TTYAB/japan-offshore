@@ -1,34 +1,42 @@
 {
-  "_lastCrawled": "2026-05-08T21:45:10.998Z",
+  "_lastCrawled": "2026-05-09T21:31:28.867Z",
   "_crawlerVersion": "1.0.0",
   "boats": {
     "sawaura": {
-      "lastSuccess": "2026-05-08T21:45:11.877Z",
+      "lastSuccess": "2026-05-09T21:31:34.471Z",
       "catches": [],
       "source": "https://www.fishing-v.jp/choka/choka_detail.php?s=12074",
       "parser": "fishing-v"
     },
     "watanabe": {
-      "lastSuccess": "2026-05-08T21:45:12.252Z",
+      "lastSuccess": "2026-05-09T21:31:34.216Z",
       "catches": [],
       "source": "https://www.fishing-v.jp/choka/detail.php?s=172",
       "parser": "fishing-v"
     },
     "fukagawa-yoshinoya": {
-      "lastSuccess": "2026-05-08T21:45:12.435Z",
+      "lastSuccess": "2026-05-09T21:31:30.468Z",
       "catches": [],
       "source": "https://www.chowari.jp/ship/00271/catch/",
       "parser": "chowari"
     },
     "tsurikou": {
-      "lastSuccess": "2026-05-08T21:45:12.991Z",
+      "lastSuccess": "2026-05-09T21:31:34.761Z",
       "catches": [],
       "source": "https://www.marines-net.co.jp/inn/tsurikouhonke",
       "parser": "marines-net"
     },
     "icfc": {
-      "lastSuccess": "2026-05-08T21:45:13.104Z",
+      "lastSuccess": "2026-05-09T21:31:31.071Z",
       "catches": [
+        {
+          "date": "2026-05-09",
+          "fish": "アジ",
+          "countMin": 1,
+          "countMax": 1,
+          "sizeRange": null,
+          "comment": "5/9 タイラバ五目ロング便 コマツ 風吹くまで沖でタイラバデカエソの猛攻が半端ない&#128514;アタリが遠い中ホウボウキャッチジグでムシガレイ鯖が2連発 2匹目の方がデカかった色々探るも当たらな…"
+        },
         {
           "date": "2026-05-08",
           "fish": "シーバス",
@@ -66,28 +74,34 @@
       "parser": "rss"
     },
     "iwataya": {
-      "lastSuccess": "2026-05-08T21:45:14.301Z",
+      "lastSuccess": "2026-05-09T21:31:35.956Z",
       "catches": [],
       "source": "https://www.funayado-iwataya.com/",
       "parser": "generic"
     },
     "bentenya": {
-      "lastSuccess": "2026-05-08T21:45:14.666Z",
+      "lastSuccess": "2026-05-09T21:31:36.302Z",
       "catches": [],
       "source": "https://bentenya.com/",
       "parser": "generic"
     },
     "yoshikyu": {
-      "lastSuccess": "2026-05-07T21:43:23.677Z",
+      "lastSuccess": "2026-05-09T21:31:36.175Z",
       "catches": [],
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-yoshikyu.htm",
-      "parser": "gyo-ne-jp",
-      "lastError": "fetch failed",
-      "lastErrorAt": "2026-05-08T21:45:23.572Z"
+      "parser": "gyo-ne-jp"
     },
     "yonemoto": {
-      "lastSuccess": "2026-05-07T21:43:23.692Z",
+      "lastSuccess": "2026-05-09T21:31:36.154Z",
       "catches": [
+        {
+          "date": "2026-05-09",
+          "fish": "ワラサ",
+          "countMin": 1,
+          "countMax": 1,
+          "sizeRange": null,
+          "comment": "5月9日の土曜日もｼｮｰﾄLTアジ船で出船ができました～♪(^^)。お越しになられた釣り人の皆さま、誠にありがとうございましたm(_ _)m。今日は晴れて青空が映える北風がそよぐ過ごしやすい良い釣り日…"
+        },
         {
           "date": "2026-05-06",
           "fish": "ワラサ",
@@ -98,36 +112,19 @@
         }
       ],
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-yonemoto.htm",
-      "parser": "gyo-ne-jp",
-      "lastError": "fetch failed",
-      "lastErrorAt": "2026-05-08T21:45:23.572Z"
+      "parser": "gyo-ne-jp"
     },
     "tadahiko": {
-      "lastSuccess": "2026-05-07T21:43:24.027Z",
+      "lastSuccess": "2026-05-09T21:31:37.055Z",
       "catches": [],
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-tadahiko.htm",
-      "parser": "gyo-ne-jp",
-      "lastError": "fetch failed",
-      "lastErrorAt": "2026-05-08T21:45:23.571Z"
+      "parser": "gyo-ne-jp"
     }
   },
-  "errors": [
-    {
-      "boatId": "tadahiko",
-      "error": "fetch failed"
-    },
-    {
-      "boatId": "yonemoto",
-      "error": "fetch failed"
-    },
-    {
-      "boatId": "yoshikyu",
-      "error": "fetch failed"
-    }
-  ],
+  "errors": [],
   "summary": {
-    "ok": 7,
-    "failed": 3,
+    "ok": 10,
+    "failed": 0,
     "total": 10
   }
 }
