@@ -1,34 +1,50 @@
 {
-  "_lastCrawled": "2026-05-31T21:44:47.634Z",
+  "_lastCrawled": "2026-06-01T22:54:15.073Z",
   "_crawlerVersion": "1.0.0",
   "boats": {
     "sawaura": {
-      "lastSuccess": "2026-05-31T21:44:48.685Z",
+      "lastSuccess": "2026-06-01T22:54:16.248Z",
       "catches": [],
       "source": "https://www.fishing-v.jp/choka/choka_detail.php?s=12074",
       "parser": "fishing-v"
     },
     "watanabe": {
-      "lastSuccess": "2026-05-31T21:44:48.818Z",
+      "lastSuccess": "2026-06-01T22:54:16.364Z",
       "catches": [],
       "source": "https://www.fishing-v.jp/choka/detail.php?s=172",
       "parser": "fishing-v"
     },
     "fukagawa-yoshinoya": {
-      "lastSuccess": "2026-05-31T21:44:48.738Z",
+      "lastSuccess": "2026-06-01T22:54:16.340Z",
       "catches": [],
       "source": "https://www.chowari.jp/ship/00271/catch/",
       "parser": "chowari"
     },
     "tsurikou": {
-      "lastSuccess": "2026-05-31T21:44:49.291Z",
+      "lastSuccess": "2026-06-01T22:54:18.135Z",
       "catches": [],
       "source": "https://www.marines-net.co.jp/inn/tsurikouhonke",
       "parser": "marines-net"
     },
     "icfc": {
-      "lastSuccess": "2026-05-31T21:44:49.116Z",
+      "lastSuccess": "2026-06-01T22:54:16.718Z",
       "catches": [
+        {
+          "date": "2026-06-01",
+          "fish": "シーバス",
+          "countMin": 6,
+          "countMax": 6,
+          "sizeRange": null,
+          "comment": "6/1 シーバスロング便 コマツ ストラク周りからスタートするも反応薄オープンのキャスティングはヒットバイト多い！バラシも多い&#129315;人間のミスではなくて魚の食いが浅い首一回振っただけでバレ…"
+        },
+        {
+          "date": "2026-06-01",
+          "fish": "イナダ",
+          "countMin": 1,
+          "countMax": 1,
+          "sizeRange": null,
+          "comment": "6/1 シーバスロング便 コマツ ストラク周りからスタートするも反応薄オープンのキャスティングはヒットバイト多い！バラシも多い&#129315;人間のミスではなくて魚の食いが浅い首一回振っただけでバレ…"
+        },
         {
           "date": "2026-05-24",
           "fish": "マダイ",
@@ -90,13 +106,13 @@
       "parser": "rss"
     },
     "iwataya": {
-      "lastSuccess": "2026-05-31T21:44:50.069Z",
+      "lastSuccess": "2026-06-01T22:54:18.922Z",
       "catches": [],
       "source": "https://www.funayado-iwataya.com/",
       "parser": "generic"
     },
     "bentenya": {
-      "lastSuccess": "2026-05-31T21:44:50.243Z",
+      "lastSuccess": "2026-06-01T22:54:19.184Z",
       "catches": [],
       "source": "https://bentenya.com/",
       "parser": "generic"
@@ -107,7 +123,7 @@
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-yoshikyu.htm",
       "parser": "gyo-ne-jp",
       "lastError": "This operation was aborted",
-      "lastErrorAt": "2026-05-31T21:45:04.294Z"
+      "lastErrorAt": "2026-06-01T22:54:33.138Z"
     },
     "yonemoto": {
       "lastSuccess": "2026-05-30T21:46:08.724Z",
@@ -228,7 +244,7 @@
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-yonemoto.htm",
       "parser": "gyo-ne-jp",
       "lastError": "This operation was aborted",
-      "lastErrorAt": "2026-05-31T21:45:04.297Z"
+      "lastErrorAt": "2026-06-01T22:54:33.140Z"
     },
     "tadahiko": {
       "lastSuccess": "2026-05-30T21:46:09.447Z",
@@ -236,7 +252,7 @@
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-tadahiko.htm",
       "parser": "gyo-ne-jp",
       "lastError": "This operation was aborted",
-      "lastErrorAt": "2026-05-31T21:45:04.298Z"
+      "lastErrorAt": "2026-06-01T22:54:33.141Z"
     }
   },
   "errors": [
