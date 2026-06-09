@@ -1,35 +1,33 @@
 {
-  "_lastCrawled": "2026-06-08T22:17:36.938Z",
+  "_lastCrawled": "2026-06-09T22:16:31.062Z",
   "_crawlerVersion": "1.0.0",
   "boats": {
     "sawaura": {
-      "lastSuccess": "2026-06-08T22:17:38.115Z",
+      "lastSuccess": "2026-06-09T22:16:32.288Z",
       "catches": [],
       "source": "https://www.fishing-v.jp/choka/choka_detail.php?s=12074",
       "parser": "fishing-v"
     },
     "watanabe": {
-      "lastSuccess": "2026-06-08T22:17:38.146Z",
+      "lastSuccess": "2026-06-09T22:16:32.790Z",
       "catches": [],
       "source": "https://www.fishing-v.jp/choka/detail.php?s=172",
       "parser": "fishing-v"
     },
     "fukagawa-yoshinoya": {
-      "lastSuccess": "2026-06-08T22:17:38.256Z",
+      "lastSuccess": "2026-06-09T22:16:32.671Z",
       "catches": [],
       "source": "https://www.chowari.jp/ship/00271/catch/",
       "parser": "chowari"
     },
     "tsurikou": {
-      "lastSuccess": "2026-06-07T21:55:56.059Z",
+      "lastSuccess": "2026-06-09T22:16:33.159Z",
       "catches": [],
       "source": "https://www.marines-net.co.jp/inn/tsurikouhonke",
-      "parser": "marines-net",
-      "lastError": "fetch failed",
-      "lastErrorAt": "2026-06-08T22:17:47.469Z"
+      "parser": "marines-net"
     },
     "icfc": {
-      "lastSuccess": "2026-06-07T21:55:56.037Z",
+      "lastSuccess": "2026-06-09T22:16:33.137Z",
       "catches": [
         {
           "date": "2026-06-07",
@@ -78,49 +76,31 @@
           "countMax": 3,
           "sizeRange": null,
           "comment": "5/23 タイラバ便 宇佐美 マダイ狙いで出船！まずはいいサイズがヒット！もう一枚追加！サイズアップ！2.2キロアタリ多いわけではありませんがもう一枚追加！コツコツ積み上げていく感じ！お次はマゴチ！マ…"
-        },
-        {
-          "date": "2026-05-09",
-          "fish": "アジ",
-          "countMin": 1,
-          "countMax": 1,
-          "sizeRange": null,
-          "comment": "5/9 タイラバ五目ロング便 コマツ 風吹くまで沖でタイラバデカエソの猛攻が半端ない&#128514;アタリが遠い中ホウボウキャッチジグでムシガレイ鯖が2連発 2匹目の方がデカかった色々探るも当たらな…"
-        },
-        {
-          "date": "2026-05-08",
-          "fish": "シーバス",
-          "countMin": 1,
-          "countMax": 1,
-          "sizeRange": null,
-          "comment": "5/8 シーバスロング便 宇佐美 シーバス狙いで出船！まずはジギングで１本ゲット！お次もジギングで連発！バクバクでした！ジギングで41キャッチ！ポイント移動してキャスティング！まずはサゴシがヒット！続…"
         }
       ],
       "source": "https://icfc.jugem.jp/?mode=rss",
-      "parser": "rss",
-      "lastError": "fetch failed",
-      "lastErrorAt": "2026-06-08T22:17:38.264Z"
+      "parser": "rss"
     },
     "iwataya": {
-      "lastSuccess": "2026-06-08T22:17:48.614Z",
+      "lastSuccess": "2026-06-09T22:16:34.326Z",
       "catches": [],
       "source": "https://www.funayado-iwataya.com/",
       "parser": "generic"
     },
     "bentenya": {
-      "lastSuccess": "2026-06-08T22:17:48.554Z",
+      "lastSuccess": "2026-06-09T22:16:34.697Z",
       "catches": [],
       "source": "https://bentenya.com/",
       "parser": "generic"
     },
     "yoshikyu": {
-      "lastSuccess": "2026-06-08T22:17:48.709Z",
+      "lastSuccess": "2026-06-09T22:16:36.799Z",
       "catches": [],
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-yoshikyu.htm",
       "parser": "gyo-ne-jp"
     },
     "yonemoto": {
-      "lastSuccess": "2026-06-08T22:17:48.737Z",
+      "lastSuccess": "2026-06-09T22:16:36.785Z",
       "catches": [
         {
           "date": "2026-05-30",
@@ -217,39 +197,22 @@
           "countMax": 1,
           "sizeRange": null,
           "comment": "5月10日の日曜日もｼｮｰﾄLTアジ船で出船ができました～♪(^^)。お越しになられた釣り人の皆さま、誠にありがとうございましたm(_ _)m。今日も北東の風がそよぐ青空が映える過ごしやすい良い釣り日…"
-        },
-        {
-          "date": "2026-05-09",
-          "fish": "ワラサ",
-          "countMin": 1,
-          "countMax": 1,
-          "sizeRange": null,
-          "comment": "5月9日の土曜日もｼｮｰﾄLTアジ船で出船ができました～♪(^^)。お越しになられた釣り人の皆さま、誠にありがとうございましたm(_ _)m。今日は晴れて青空が映える北風がそよぐ過ごしやすい良い釣り日…"
         }
       ],
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-yonemoto.htm",
       "parser": "gyo-ne-jp"
     },
     "tadahiko": {
-      "lastSuccess": "2026-06-08T22:17:49.346Z",
+      "lastSuccess": "2026-06-09T22:16:36.997Z",
       "catches": [],
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-tadahiko.htm",
       "parser": "gyo-ne-jp"
     }
   },
-  "errors": [
-    {
-      "boatId": "icfc",
-      "error": "fetch failed"
-    },
-    {
-      "boatId": "tsurikou",
-      "error": "fetch failed"
-    }
-  ],
+  "errors": [],
   "summary": {
-    "ok": 8,
-    "failed": 2,
+    "ok": 10,
+    "failed": 0,
     "total": 10
   }
 }
