@@ -1,33 +1,33 @@
 {
-  "_lastCrawled": "2026-06-21T22:05:52.512Z",
+  "_lastCrawled": "2026-06-22T22:28:26.196Z",
   "_crawlerVersion": "1.0.0",
   "boats": {
     "sawaura": {
-      "lastSuccess": "2026-06-21T22:05:53.759Z",
+      "lastSuccess": "2026-06-22T22:28:27.103Z",
       "catches": [],
       "source": "https://www.fishing-v.jp/choka/choka_detail.php?s=12074",
       "parser": "fishing-v"
     },
     "watanabe": {
-      "lastSuccess": "2026-06-21T22:05:53.957Z",
+      "lastSuccess": "2026-06-22T22:28:27.642Z",
       "catches": [],
       "source": "https://www.fishing-v.jp/choka/detail.php?s=172",
       "parser": "fishing-v"
     },
     "fukagawa-yoshinoya": {
-      "lastSuccess": "2026-06-21T22:05:54.031Z",
+      "lastSuccess": "2026-06-22T22:28:27.581Z",
       "catches": [],
       "source": "https://www.chowari.jp/ship/00271/catch/",
       "parser": "chowari"
     },
     "tsurikou": {
-      "lastSuccess": "2026-06-21T22:05:54.612Z",
+      "lastSuccess": "2026-06-22T22:28:28.006Z",
       "catches": [],
       "source": "https://www.marines-net.co.jp/inn/tsurikouhonke",
       "parser": "marines-net"
     },
     "icfc": {
-      "lastSuccess": "2026-06-21T22:05:54.669Z",
+      "lastSuccess": "2026-06-22T22:28:28.208Z",
       "catches": [
         {
           "date": "2026-06-17",
@@ -106,25 +106,25 @@
       "parser": "rss"
     },
     "iwataya": {
-      "lastSuccess": "2026-06-21T22:05:55.908Z",
+      "lastSuccess": "2026-06-22T22:28:29.229Z",
       "catches": [],
       "source": "https://www.funayado-iwataya.com/",
       "parser": "generic"
     },
     "bentenya": {
-      "lastSuccess": "2026-06-21T22:05:56.281Z",
+      "lastSuccess": "2026-06-22T22:28:29.343Z",
       "catches": [],
       "source": "https://bentenya.com/",
       "parser": "generic"
     },
     "yoshikyu": {
-      "lastSuccess": "2026-06-21T22:05:56.420Z",
+      "lastSuccess": "2026-06-22T22:28:29.319Z",
       "catches": [],
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-yoshikyu.htm",
       "parser": "gyo-ne-jp"
     },
     "yonemoto": {
-      "lastSuccess": "2026-06-21T22:05:56.413Z",
+      "lastSuccess": "2026-06-22T22:28:29.326Z",
       "catches": [
         {
           "date": "2026-06-07",
@@ -165,21 +165,13 @@
           "countMax": 1,
           "sizeRange": null,
           "comment": "2026/05/23 発信 ◎半夜アジ＆カサゴ船、土曜日限定の予約乗合で出船中です。お誘いあわせの上、ご予約のお電話お待ちしております。《早朝の桟橋や船上は凍結して大変滑りやすくなっています。足元には…"
-        },
-        {
-          "date": "2026-05-22",
-          "fish": "ワラサ",
-          "countMin": 1,
-          "countMax": 1,
-          "sizeRange": null,
-          "comment": "2026/05/22 発信 ◎半夜アジ＆カサゴ船、土曜日限定の予約乗合で出船中です。お誘いあわせの上、ご予約のお電話お待ちしております。《早朝の桟橋や船上は凍結して大変滑りやすくなっています。足元には…"
         }
       ],
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-yonemoto.htm",
       "parser": "gyo-ne-jp"
     },
     "tadahiko": {
-      "lastSuccess": "2026-06-21T22:05:57.295Z",
+      "lastSuccess": "2026-06-22T22:28:29.838Z",
       "catches": [],
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-tadahiko.htm",
       "parser": "gyo-ne-jp"
