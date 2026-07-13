@@ -1,15 +1,15 @@
 {
-  "_lastCrawled": "2026-07-12T21:36:30.747Z",
+  "_lastCrawled": "2026-07-13T21:40:47.456Z",
   "_crawlerVersion": "1.0.0",
   "boats": {
     "sawaura": {
-      "lastSuccess": "2026-07-12T21:36:31.713Z",
+      "lastSuccess": "2026-07-13T21:40:48.610Z",
       "catches": [],
       "source": "https://www.fishing-v.jp/choka/choka_detail.php?s=12074",
       "parser": "fishing-v"
     },
     "watanabe": {
-      "lastSuccess": "2026-07-12T21:36:31.838Z",
+      "lastSuccess": "2026-07-13T21:40:48.648Z",
       "catches": [
         {
           "date": "2026-06-28",
@@ -24,19 +24,19 @@
       "parser": "fishing-v"
     },
     "fukagawa-yoshinoya": {
-      "lastSuccess": "2026-07-12T21:36:31.876Z",
+      "lastSuccess": "2026-07-13T21:40:48.681Z",
       "catches": [],
       "source": "https://www.chowari.jp/ship/00271/catch/",
       "parser": "chowari"
     },
     "tsurikou": {
-      "lastSuccess": "2026-07-12T21:36:32.161Z",
+      "lastSuccess": "2026-07-13T21:40:48.959Z",
       "catches": [],
       "source": "https://www.marines-net.co.jp/inn/tsurikouhonke",
       "parser": "marines-net"
     },
     "icfc": {
-      "lastSuccess": "2026-07-12T21:36:32.114Z",
+      "lastSuccess": "2026-07-13T21:40:49.662Z",
       "catches": [
         {
           "date": "2026-07-12",
@@ -115,31 +115,31 @@
       "parser": "rss"
     },
     "iwataya": {
-      "lastSuccess": "2026-07-12T21:36:32.959Z",
+      "lastSuccess": "2026-07-13T21:40:50.855Z",
       "catches": [],
       "source": "https://www.funayado-iwataya.com/",
       "parser": "generic"
     },
     "bentenya": {
-      "lastSuccess": "2026-07-12T21:36:33.127Z",
+      "lastSuccess": "2026-07-13T21:40:51.126Z",
       "catches": [],
       "source": "https://bentenya.com/",
       "parser": "generic"
     },
     "yoshikyu": {
-      "lastSuccess": "2026-07-12T21:36:33.479Z",
+      "lastSuccess": "2026-07-13T21:40:50.898Z",
       "catches": [],
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-yoshikyu.htm",
       "parser": "gyo-ne-jp"
     },
     "yonemoto": {
-      "lastSuccess": "2026-07-12T21:36:33.487Z",
+      "lastSuccess": "2026-07-13T21:40:51.468Z",
       "catches": [],
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-yonemoto.htm",
       "parser": "gyo-ne-jp"
     },
     "tadahiko": {
-      "lastSuccess": "2026-07-12T21:36:33.719Z",
+      "lastSuccess": "2026-07-13T21:40:51.792Z",
       "catches": [],
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-tadahiko.htm",
       "parser": "gyo-ne-jp"
