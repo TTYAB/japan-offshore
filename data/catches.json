@@ -1,34 +1,42 @@
 {
-  "_lastCrawled": "2026-08-14T21:12:38.246Z",
+  "_lastCrawled": "2026-08-15T21:08:47.904Z",
   "_crawlerVersion": "1.0.0",
   "boats": {
     "sawaura": {
-      "lastSuccess": "2026-08-14T21:12:39.452Z",
+      "lastSuccess": "2026-08-15T21:08:49.074Z",
       "catches": [],
       "source": "https://www.fishing-v.jp/choka/choka_detail.php?s=12074",
       "parser": "fishing-v"
     },
     "watanabe": {
-      "lastSuccess": "2026-08-14T21:12:40.134Z",
+      "lastSuccess": "2026-08-15T21:08:49.160Z",
       "catches": [],
       "source": "https://www.fishing-v.jp/choka/detail.php?s=172",
       "parser": "fishing-v"
     },
     "fukagawa-yoshinoya": {
-      "lastSuccess": "2026-08-14T21:12:40.114Z",
+      "lastSuccess": "2026-08-15T21:08:48.938Z",
       "catches": [],
       "source": "https://www.chowari.jp/ship/00271/catch/",
       "parser": "chowari"
     },
     "tsurikou": {
-      "lastSuccess": "2026-08-14T21:12:40.274Z",
+      "lastSuccess": "2026-08-15T21:08:49.252Z",
       "catches": [],
       "source": "https://www.marines-net.co.jp/inn/tsurikouhonke",
       "parser": "marines-net"
     },
     "icfc": {
-      "lastSuccess": "2026-08-14T21:12:40.210Z",
+      "lastSuccess": "2026-08-15T21:08:49.585Z",
       "catches": [
+        {
+          "date": "2026-08-15",
+          "fish": "サワラ",
+          "countMin": 8,
+          "countMax": 8,
+          "sizeRange": null,
+          "comment": "8/15 青物サワラ便 太郎 今日は青物狙いで出船！朝一からヒット！こちらは85cm!!ナイスキャッチ！ナイス！ナイスです！みなさんお土産できてよかったです！本日はご乗船ありがとうございました&#12…"
+        },
         {
           "date": "2026-08-06",
           "fish": "サワラ",
@@ -60,27 +68,19 @@
           "countMax": 3,
           "sizeRange": null,
           "comment": "7/22 青物便 太郎 今日は青物狙いで出船！朝一からナイスキャッチ！ボイルして良い雰囲気！ミノーでヒット！サワラッシュ！というルアーナイスキャッチ！ナイスです！連発！ラストはイナワラゲット！サワラ3…"
-        },
-        {
-          "date": "2026-07-15",
-          "fish": "ワラサ",
-          "countMin": 3,
-          "countMax": 3,
-          "sizeRange": null,
-          "comment": "7/15 青物便 太郎 今日は青物狙いで出船！まずはブリワラサ狙い！ヒット！5.8kg！ナイスキャッチ！サワラ狙いへ！小松船長から激アツ入電！ナイスキャッチー！ナイス！ここからバクバク！ダブルヒット！…"
         }
       ],
       "source": "https://icfc.jugem.jp/?mode=rss",
       "parser": "rss"
     },
     "iwataya": {
-      "lastSuccess": "2026-08-14T21:12:41.463Z",
+      "lastSuccess": "2026-08-15T21:08:50.801Z",
       "catches": [],
       "source": "https://www.funayado-iwataya.com/",
       "parser": "generic"
     },
     "bentenya": {
-      "lastSuccess": "2026-08-14T21:12:41.597Z",
+      "lastSuccess": "2026-08-15T21:08:50.950Z",
       "catches": [],
       "source": "https://bentenya.com/",
       "parser": "generic"
@@ -89,7 +89,9 @@
       "lastSuccess": "2026-08-14T21:12:42.027Z",
       "catches": [],
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-yoshikyu.htm",
-      "parser": "gyo-ne-jp"
+      "parser": "gyo-ne-jp",
+      "lastError": "fetch failed",
+      "lastErrorAt": "2026-08-15T21:09:00.052Z"
     },
     "yonemoto": {
       "lastSuccess": "2026-08-14T21:12:42.041Z",
@@ -112,19 +114,36 @@
         }
       ],
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-yonemoto.htm",
-      "parser": "gyo-ne-jp"
+      "parser": "gyo-ne-jp",
+      "lastError": "fetch failed",
+      "lastErrorAt": "2026-08-15T21:09:00.051Z"
     },
     "tadahiko": {
       "lastSuccess": "2026-08-14T21:12:42.856Z",
       "catches": [],
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-tadahiko.htm",
-      "parser": "gyo-ne-jp"
+      "parser": "gyo-ne-jp",
+      "lastError": "fetch failed",
+      "lastErrorAt": "2026-08-15T21:09:00.051Z"
     }
   },
-  "errors": [],
+  "errors": [
+    {
+      "boatId": "tadahiko",
+      "error": "fetch failed"
+    },
+    {
+      "boatId": "yonemoto",
+      "error": "fetch failed"
+    },
+    {
+      "boatId": "yoshikyu",
+      "error": "fetch failed"
+    }
+  ],
   "summary": {
-    "ok": 10,
-    "failed": 0,
+    "ok": 7,
+    "failed": 3,
     "total": 10
   }
 }
