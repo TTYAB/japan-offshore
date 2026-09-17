@@ -1,33 +1,42 @@
 {
-  "_lastCrawled": "2026-09-16T23:18:15.364Z",
+  "_lastCrawled": "2026-09-17T23:09:34.631Z",
   "_crawlerVersion": "1.0.0",
   "boats": {
     "sawaura": {
-      "lastSuccess": "2026-09-16T23:18:16.348Z",
+      "lastSuccess": "2026-09-17T23:09:35.690Z",
       "catches": [],
       "source": "https://www.fishing-v.jp/choka/choka_detail.php?s=12074",
       "parser": "fishing-v"
     },
     "watanabe": {
-      "lastSuccess": "2026-09-16T23:18:17.041Z",
+      "lastSuccess": "2026-09-17T23:09:35.452Z",
       "catches": [],
       "source": "https://www.fishing-v.jp/choka/detail.php?s=172",
       "parser": "fishing-v"
     },
     "fukagawa-yoshinoya": {
-      "lastSuccess": "2026-09-16T23:18:16.710Z",
-      "catches": [],
+      "lastSuccess": "2026-09-17T23:09:35.791Z",
+      "catches": [
+        {
+          "date": "2026-09-17",
+          "fish": "サワラ",
+          "countMin": 1,
+          "countMax": 1,
+          "sizeRange": null,
+          "comment": "釣行日：2026年9月17日（木）小潮 サワラ 65～83cm 0～3匹 【サワラ船】木更津沖からスタート。ベイト反応は多くあり周辺を捜索していると砕けた反応を発見しキャストしてみると直ぐにヒットしサ…"
+        }
+      ],
       "source": "https://www.chowari.jp/ship/00271/catch/",
       "parser": "chowari"
     },
     "tsurikou": {
-      "lastSuccess": "2026-09-16T23:18:16.912Z",
+      "lastSuccess": "2026-09-17T23:09:36.112Z",
       "catches": [],
       "source": "https://www.marines-net.co.jp/inn/tsurikouhonke",
       "parser": "marines-net"
     },
     "icfc": {
-      "lastSuccess": "2026-09-16T23:18:16.948Z",
+      "lastSuccess": "2026-09-17T23:09:36.277Z",
       "catches": [
         {
           "date": "2026-09-02",
@@ -98,28 +107,42 @@
       "parser": "rss"
     },
     "iwataya": {
-      "lastSuccess": "2026-09-16T23:18:18.025Z",
+      "lastSuccess": "2026-09-17T23:09:37.490Z",
       "catches": [],
       "source": "https://www.funayado-iwataya.com/",
       "parser": "generic"
     },
     "bentenya": {
-      "lastSuccess": "2026-09-16T23:18:18.392Z",
+      "lastSuccess": "2026-09-17T23:09:37.523Z",
       "catches": [],
       "source": "https://bentenya.com/",
       "parser": "generic"
     },
     "yoshikyu": {
-      "lastSuccess": "2026-09-13T22:41:19.695Z",
+      "lastSuccess": "2026-09-17T23:09:37.617Z",
       "catches": [],
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-yoshikyu.htm",
-      "parser": "gyo-ne-jp",
-      "lastError": "fetch failed",
-      "lastErrorAt": "2026-09-16T23:18:27.382Z"
+      "parser": "gyo-ne-jp"
     },
     "yonemoto": {
-      "lastSuccess": "2026-09-13T22:41:19.685Z",
+      "lastSuccess": "2026-09-17T23:09:37.612Z",
       "catches": [
+        {
+          "date": "2026-09-16",
+          "fish": "クロダイ",
+          "countMin": 2,
+          "countMax": 2,
+          "sizeRange": null,
+          "comment": "9月16日の水曜日もｼｮｰﾄLTアジ船で出船ができました～♪(^^)。小雨が舞う中をお越しになられた釣り人の皆さま、誠にありがとうございましたm(_ _)m。朝から小雨が舞っていて北東の風が少し吹いて…"
+        },
+        {
+          "date": "2026-09-16",
+          "fish": "アジ",
+          "countMin": 66,
+          "countMax": 66,
+          "sizeRange": null,
+          "comment": "9月16日の水曜日もｼｮｰﾄLTアジ船で出船ができました～♪(^^)。小雨が舞う中をお越しになられた釣り人の皆さま、誠にありがとうございましたm(_ _)m。朝から小雨が舞っていて北東の風が少し吹いて…"
+        },
         {
           "date": "2026-09-12",
           "fish": "アジ",
@@ -130,36 +153,19 @@
         }
       ],
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-yonemoto.htm",
-      "parser": "gyo-ne-jp",
-      "lastError": "fetch failed",
-      "lastErrorAt": "2026-09-16T23:18:27.382Z"
+      "parser": "gyo-ne-jp"
     },
     "tadahiko": {
-      "lastSuccess": "2026-09-13T22:41:20.322Z",
+      "lastSuccess": "2026-09-17T23:09:38.706Z",
       "catches": [],
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-tadahiko.htm",
-      "parser": "gyo-ne-jp",
-      "lastError": "fetch failed",
-      "lastErrorAt": "2026-09-16T23:18:27.382Z"
+      "parser": "gyo-ne-jp"
     }
   },
-  "errors": [
-    {
-      "boatId": "tadahiko",
-      "error": "fetch failed"
-    },
-    {
-      "boatId": "yoshikyu",
-      "error": "fetch failed"
-    },
-    {
-      "boatId": "yonemoto",
-      "error": "fetch failed"
-    }
-  ],
+  "errors": [],
   "summary": {
-    "ok": 7,
-    "failed": 3,
+    "ok": 10,
+    "failed": 0,
     "total": 10
   }
 }
