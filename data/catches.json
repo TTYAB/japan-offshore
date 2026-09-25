@@ -1,21 +1,21 @@
 {
-  "_lastCrawled": "2026-09-24T23:35:50.082Z",
+  "_lastCrawled": "2026-09-25T23:39:13.726Z",
   "_crawlerVersion": "1.0.0",
   "boats": {
     "sawaura": {
-      "lastSuccess": "2026-09-24T23:35:51.141Z",
+      "lastSuccess": "2026-09-25T23:39:14.879Z",
       "catches": [],
       "source": "https://www.fishing-v.jp/choka/choka_detail.php?s=12074",
       "parser": "fishing-v"
     },
     "watanabe": {
-      "lastSuccess": "2026-09-24T23:35:51.196Z",
+      "lastSuccess": "2026-09-25T23:39:14.931Z",
       "catches": [],
       "source": "https://www.fishing-v.jp/choka/detail.php?s=172",
       "parser": "fishing-v"
     },
     "fukagawa-yoshinoya": {
-      "lastSuccess": "2026-09-24T23:35:51.356Z",
+      "lastSuccess": "2026-09-25T23:39:14.822Z",
       "catches": [
         {
           "date": "2026-09-19",
@@ -38,14 +38,38 @@
       "parser": "chowari"
     },
     "tsurikou": {
-      "lastSuccess": "2026-09-24T23:35:51.562Z",
+      "lastSuccess": "2026-09-25T23:39:15.013Z",
       "catches": [],
       "source": "https://www.marines-net.co.jp/inn/tsurikouhonke",
       "parser": "marines-net"
     },
     "icfc": {
-      "lastSuccess": "2026-09-24T23:35:51.714Z",
+      "lastSuccess": "2026-09-25T23:39:15.270Z",
       "catches": [
+        {
+          "date": "2026-09-25",
+          "fish": "サワラ",
+          "countMin": 2,
+          "countMax": 2,
+          "sizeRange": null,
+          "comment": "9/25 サワラ便 太郎 今日はサワラ狙いで出船！ナイスキャッチ！ここからポツポツヒット！良いサイズ！イナダ！ダブルサゴシ！今日はイナダもよく釣れます！太刀魚！最初苦戦しましたが、全員安打でした！サワ…"
+        },
+        {
+          "date": "2026-09-25",
+          "fish": "タチウオ",
+          "countMin": 2,
+          "countMax": 2,
+          "sizeRange": null,
+          "comment": "9/25 サワラロング便 コマツ 朝からサゴシ連チャン！サゴシ釣りまくってサイズ狙いに行ってサワラ！サワラー追加！って感じでラストまでポツポツと当たり続けました！本日もご乗船ありがとうございました！サ…"
+        },
+        {
+          "date": "2026-09-25",
+          "fish": "イナダ",
+          "countMin": 5,
+          "countMax": 5,
+          "sizeRange": null,
+          "comment": "9/25 サワラ便 太郎 今日はサワラ狙いで出船！ナイスキャッチ！ここからポツポツヒット！良いサイズ！イナダ！ダブルサゴシ！今日はイナダもよく釣れます！太刀魚！最初苦戦しましたが、全員安打でした！サワ…"
+        },
         {
           "date": "2026-09-19",
           "fish": "サワラ",
@@ -109,27 +133,19 @@
           "countMax": 2,
           "sizeRange": null,
           "comment": "8/29 サワラAM便 太郎 今日はサワラ狙いで出船！序盤、雰囲気あるエリアからスタートブレードでヒット！その後一旦帰港し、2名でリスタート！ミノーでヒット！ダツ！雨風の中最後までありがとうございまし…"
-        },
-        {
-          "date": "2026-08-25",
-          "fish": "サワラ",
-          "countMin": 3,
-          "countMax": 3,
-          "sizeRange": null,
-          "comment": "8/25 マゴチロング便 コマツ マゴチ便と書きつつサワラの道具もあったのでサワラからサクッと３本釣れたので本命のマゴチにいくも全く当たらない風予報通り風も出てきてやり辛くなってきたのでサワラに戻して…"
         }
       ],
       "source": "https://icfc.jugem.jp/?mode=rss",
       "parser": "rss"
     },
     "iwataya": {
-      "lastSuccess": "2026-09-24T23:35:53.017Z",
+      "lastSuccess": "2026-09-25T23:39:16.264Z",
       "catches": [],
       "source": "https://www.funayado-iwataya.com/",
       "parser": "generic"
     },
     "bentenya": {
-      "lastSuccess": "2026-09-24T23:35:53.224Z",
+      "lastSuccess": "2026-09-25T23:39:16.549Z",
       "catches": [],
       "source": "https://bentenya.com/",
       "parser": "generic"
@@ -140,7 +156,7 @@
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-yoshikyu.htm",
       "parser": "gyo-ne-jp",
       "lastError": "fetch failed",
-      "lastErrorAt": "2026-09-24T23:36:02.193Z"
+      "lastErrorAt": "2026-09-25T23:39:25.268Z"
     },
     "yonemoto": {
       "lastSuccess": "2026-09-20T22:45:26.699Z",
@@ -181,7 +197,7 @@
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-yonemoto.htm",
       "parser": "gyo-ne-jp",
       "lastError": "fetch failed",
-      "lastErrorAt": "2026-09-24T23:36:02.192Z"
+      "lastErrorAt": "2026-09-25T23:39:25.268Z"
     },
     "tadahiko": {
       "lastSuccess": "2026-09-20T22:45:27.246Z",
@@ -189,7 +205,7 @@
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-tadahiko.htm",
       "parser": "gyo-ne-jp",
       "lastError": "fetch failed",
-      "lastErrorAt": "2026-09-24T23:36:02.192Z"
+      "lastErrorAt": "2026-09-25T23:39:25.267Z"
     }
   },
   "errors": [
@@ -198,11 +214,11 @@
       "error": "fetch failed"
     },
     {
-      "boatId": "yonemoto",
+      "boatId": "yoshikyu",
       "error": "fetch failed"
     },
     {
-      "boatId": "yoshikyu",
+      "boatId": "yonemoto",
       "error": "fetch failed"
     }
   ],
