@@ -1,21 +1,21 @@
 {
-  "_lastCrawled": "2026-10-03T00:01:50.886Z",
+  "_lastCrawled": "2026-10-03T23:23:59.865Z",
   "_crawlerVersion": "1.0.0",
   "boats": {
     "sawaura": {
-      "lastSuccess": "2026-10-03T00:01:51.533Z",
+      "lastSuccess": "2026-10-03T23:24:01.026Z",
       "catches": [],
       "source": "https://www.fishing-v.jp/choka/choka_detail.php?s=12074",
       "parser": "fishing-v"
     },
     "watanabe": {
-      "lastSuccess": "2026-10-03T00:01:51.890Z",
+      "lastSuccess": "2026-10-03T23:24:01.072Z",
       "catches": [],
       "source": "https://www.fishing-v.jp/choka/detail.php?s=172",
       "parser": "fishing-v"
     },
     "fukagawa-yoshinoya": {
-      "lastSuccess": "2026-10-03T00:01:52.259Z",
+      "lastSuccess": "2026-10-03T23:24:01.258Z",
       "catches": [
         {
           "date": "2026-09-19",
@@ -38,16 +38,38 @@
       "parser": "chowari"
     },
     "tsurikou": {
-      "lastSuccess": "2026-10-02T00:16:50.155Z",
+      "lastSuccess": "2026-10-03T23:24:01.777Z",
       "catches": [],
       "source": "https://www.marines-net.co.jp/inn/tsurikouhonke",
-      "parser": "marines-net",
-      "lastError": "fetch failed",
-      "lastErrorAt": "2026-10-03T00:02:01.423Z"
+      "parser": "marines-net"
     },
     "icfc": {
-      "lastSuccess": "2026-10-03T00:01:52.704Z",
+      "lastSuccess": "2026-10-03T23:24:01.702Z",
       "catches": [
+        {
+          "date": "2026-10-03",
+          "fish": "サワラ",
+          "countMin": 1,
+          "countMax": 1,
+          "sizeRange": null,
+          "comment": "10/3 サワラ五目便 太郎 今日はサワラ狙いで3名で出船！序盤からヒット！朝は、もはや入れ食いレベル！イナダも連発！良いサイズもヒット！中盤はスーパービッグサイズを狙いに行きましたが、こちらは捉えき…"
+        },
+        {
+          "date": "2026-10-03",
+          "fish": "イナダ",
+          "countMin": 2,
+          "countMax": 2,
+          "sizeRange": null,
+          "comment": "10/3 サワラ五目便 太郎 今日はサワラ狙いで3名で出船！序盤からヒット！朝は、もはや入れ食いレベル！イナダも連発！良いサイズもヒット！中盤はスーパービッグサイズを狙いに行きましたが、こちらは捉えき…"
+        },
+        {
+          "date": "2026-10-03",
+          "fish": "タチウオ",
+          "countMin": 1,
+          "countMax": 1,
+          "sizeRange": null,
+          "comment": "10/3 サワラ五目便 太郎 今日はサワラ狙いで3名で出船！序盤からヒット！朝は、もはや入れ食いレベル！イナダも連発！良いサイズもヒット！中盤はスーパービッグサイズを狙いに行きましたが、こちらは捉えき…"
+        },
         {
           "date": "2026-10-02",
           "fish": "イナダ",
@@ -109,25 +131,25 @@
       "parser": "rss"
     },
     "iwataya": {
-      "lastSuccess": "2026-10-03T00:02:02.793Z",
+      "lastSuccess": "2026-10-03T23:24:03.264Z",
       "catches": [],
       "source": "https://www.funayado-iwataya.com/",
       "parser": "generic"
     },
     "bentenya": {
-      "lastSuccess": "2026-10-03T00:02:03.023Z",
+      "lastSuccess": "2026-10-03T23:24:03.316Z",
       "catches": [],
       "source": "https://bentenya.com/",
       "parser": "generic"
     },
     "yoshikyu": {
-      "lastSuccess": "2026-10-03T00:02:02.705Z",
+      "lastSuccess": "2026-10-03T23:24:03.210Z",
       "catches": [],
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-yoshikyu.htm",
       "parser": "gyo-ne-jp"
     },
     "yonemoto": {
-      "lastSuccess": "2026-10-03T00:02:03.306Z",
+      "lastSuccess": "2026-10-03T23:24:03.220Z",
       "catches": [
         {
           "date": "2026-09-19",
@@ -166,21 +188,16 @@
       "parser": "gyo-ne-jp"
     },
     "tadahiko": {
-      "lastSuccess": "2026-10-03T00:02:03.621Z",
+      "lastSuccess": "2026-10-03T23:24:03.953Z",
       "catches": [],
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-tadahiko.htm",
       "parser": "gyo-ne-jp"
     }
   },
-  "errors": [
-    {
-      "boatId": "tsurikou",
-      "error": "fetch failed"
-    }
-  ],
+  "errors": [],
   "summary": {
-    "ok": 9,
-    "failed": 1,
+    "ok": 10,
+    "failed": 0,
     "total": 10
   }
 }
