@@ -1,21 +1,21 @@
 {
-  "_lastCrawled": "2026-10-10T00:21:36.419Z",
+  "_lastCrawled": "2026-10-10T23:55:25.512Z",
   "_crawlerVersion": "1.0.0",
   "boats": {
     "sawaura": {
-      "lastSuccess": "2026-10-10T00:21:37.531Z",
+      "lastSuccess": "2026-10-10T23:55:26.353Z",
       "catches": [],
       "source": "https://www.fishing-v.jp/choka/choka_detail.php?s=12074",
       "parser": "fishing-v"
     },
     "watanabe": {
-      "lastSuccess": "2026-10-10T00:21:37.867Z",
+      "lastSuccess": "2026-10-10T23:55:26.880Z",
       "catches": [],
       "source": "https://www.fishing-v.jp/choka/detail.php?s=172",
       "parser": "fishing-v"
     },
     "fukagawa-yoshinoya": {
-      "lastSuccess": "2026-10-10T00:21:37.790Z",
+      "lastSuccess": "2026-10-10T23:55:26.857Z",
       "catches": [
         {
           "date": "2026-09-19",
@@ -38,13 +38,13 @@
       "parser": "chowari"
     },
     "tsurikou": {
-      "lastSuccess": "2026-10-10T00:21:38.011Z",
+      "lastSuccess": "2026-10-10T23:55:27.146Z",
       "catches": [],
       "source": "https://www.marines-net.co.jp/inn/tsurikouhonke",
       "parser": "marines-net"
     },
     "icfc": {
-      "lastSuccess": "2026-10-10T00:21:38.205Z",
+      "lastSuccess": "2026-10-10T23:55:27.216Z",
       "catches": [
         {
           "date": "2026-10-09",
@@ -179,28 +179,34 @@
       "parser": "rss"
     },
     "iwataya": {
-      "lastSuccess": "2026-10-10T00:21:39.598Z",
+      "lastSuccess": "2026-10-10T23:55:28.341Z",
       "catches": [],
       "source": "https://www.funayado-iwataya.com/",
       "parser": "generic"
     },
     "bentenya": {
-      "lastSuccess": "2026-10-10T00:21:39.611Z",
+      "lastSuccess": "2026-10-10T23:55:28.388Z",
       "catches": [],
       "source": "https://bentenya.com/",
       "parser": "generic"
     },
     "yoshikyu": {
-      "lastSuccess": "2026-10-08T00:29:27.431Z",
+      "lastSuccess": "2026-10-10T23:55:28.480Z",
       "catches": [],
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-yoshikyu.htm",
-      "parser": "gyo-ne-jp",
-      "lastError": "fetch failed",
-      "lastErrorAt": "2026-10-10T00:21:48.450Z"
+      "parser": "gyo-ne-jp"
     },
     "yonemoto": {
-      "lastSuccess": "2026-10-08T00:29:27.441Z",
+      "lastSuccess": "2026-10-10T23:55:28.467Z",
       "catches": [
+        {
+          "date": "2026-10-10",
+          "fish": "クロダイ",
+          "countMin": 2,
+          "countMax": 2,
+          "sizeRange": null,
+          "comment": "2026/10/10 発信 《早朝の桟橋や船上は大変滑りやすくなっています。足元には充分気をつけて歩くようにお願いしますm(_ _)m》≪船釣りはマイ・ライフジャケットで！！≫◎乗合船は全船予約制とな…"
+        },
         {
           "date": "2026-10-06",
           "fish": "クロダイ",
@@ -243,36 +249,19 @@
         }
       ],
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-yonemoto.htm",
-      "parser": "gyo-ne-jp",
-      "lastError": "fetch failed",
-      "lastErrorAt": "2026-10-10T00:21:48.450Z"
+      "parser": "gyo-ne-jp"
     },
     "tadahiko": {
-      "lastSuccess": "2026-10-08T00:29:27.696Z",
+      "lastSuccess": "2026-10-10T23:55:28.738Z",
       "catches": [],
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-tadahiko.htm",
-      "parser": "gyo-ne-jp",
-      "lastError": "fetch failed",
-      "lastErrorAt": "2026-10-10T00:21:48.449Z"
+      "parser": "gyo-ne-jp"
     }
   },
-  "errors": [
-    {
-      "boatId": "tadahiko",
-      "error": "fetch failed"
-    },
-    {
-      "boatId": "yoshikyu",
-      "error": "fetch failed"
-    },
-    {
-      "boatId": "yonemoto",
-      "error": "fetch failed"
-    }
-  ],
+  "errors": [],
   "summary": {
-    "ok": 7,
-    "failed": 3,
+    "ok": 10,
+    "failed": 0,
     "total": 10
   }
 }
