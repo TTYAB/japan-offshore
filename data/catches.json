@@ -1,15 +1,15 @@
 {
-  "_lastCrawled": "2026-10-16T23:04:23.906Z",
+  "_lastCrawled": "2026-10-17T22:43:55.520Z",
   "_crawlerVersion": "1.0.0",
   "boats": {
     "sawaura": {
-      "lastSuccess": "2026-10-16T23:04:24.580Z",
+      "lastSuccess": "2026-10-17T22:43:56.478Z",
       "catches": [],
       "source": "https://www.fishing-v.jp/choka/choka_detail.php?s=12074",
       "parser": "fishing-v"
     },
     "watanabe": {
-      "lastSuccess": "2026-10-16T23:04:25.080Z",
+      "lastSuccess": "2026-10-17T22:43:56.291Z",
       "catches": [],
       "source": "https://www.fishing-v.jp/choka/detail.php?s=172",
       "parser": "fishing-v"
@@ -35,17 +35,43 @@
         }
       ],
       "source": "https://www.chowari.jp/ship/00271/catch/",
-      "parser": "chowari"
+      "parser": "chowari",
+      "lastError": "HTTP 403",
+      "lastErrorAt": "2026-10-17T22:43:56.294Z"
     },
     "tsurikou": {
-      "lastSuccess": "2026-10-16T23:04:25.349Z",
+      "lastSuccess": "2026-10-17T22:43:56.815Z",
       "catches": [],
       "source": "https://www.marines-net.co.jp/inn/tsurikouhonke",
       "parser": "marines-net"
     },
     "icfc": {
-      "lastSuccess": "2026-10-16T23:04:25.735Z",
+      "lastSuccess": "2026-10-17T22:43:57.034Z",
       "catches": [
+        {
+          "date": "2026-10-17",
+          "fish": "ワラサ",
+          "countMin": 1,
+          "countMax": 1,
+          "sizeRange": null,
+          "comment": "10/17 シーバス通し便 コマツ 僚船と連絡とりながら７９センチチェイスはいっぱいある誤爆もあったけど、続かず宇佐美艇から連絡もらって８６センチワラサまで！夕方バタバタと時合ありました！本日もご乗船…"
+        },
+        {
+          "date": "2026-10-17",
+          "fish": "サワラ",
+          "countMin": 4,
+          "countMax": 4,
+          "sizeRange": null,
+          "comment": "10/17 サワラ便 太郎 今日はサワラ狙いで出船！朝一からバリバリヒット！良いサイズも！イナダ！五目の達人！後半は型狙いで！反応のわりに食いませんが、なんとかヒット！87cmでました！全員安打でした…"
+        },
+        {
+          "date": "2026-10-17",
+          "fish": "タチウオ",
+          "countMin": 4,
+          "countMax": 4,
+          "sizeRange": null,
+          "comment": "10/17 サワラ便 太郎 今日はサワラ狙いで出船！朝一からバリバリヒット！良いサイズも！イナダ！五目の達人！後半は型狙いで！反応のわりに食いませんが、なんとかヒット！87cmでました！全員安打でした…"
+        },
         {
           "date": "2026-10-16",
           "fish": "サワラ",
@@ -211,13 +237,13 @@
       "parser": "rss"
     },
     "iwataya": {
-      "lastSuccess": "2026-10-16T23:04:26.863Z",
+      "lastSuccess": "2026-10-17T22:43:57.807Z",
       "catches": [],
       "source": "https://www.funayado-iwataya.com/",
       "parser": "generic"
     },
     "bentenya": {
-      "lastSuccess": "2026-10-16T23:04:26.931Z",
+      "lastSuccess": "2026-10-17T22:43:57.889Z",
       "catches": [],
       "source": "https://bentenya.com/",
       "parser": "generic"
@@ -228,7 +254,7 @@
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-yoshikyu.htm",
       "parser": "gyo-ne-jp",
       "lastError": "fetch failed",
-      "lastErrorAt": "2026-10-16T23:04:36.203Z"
+      "lastErrorAt": "2026-10-17T22:44:07.033Z"
     },
     "yonemoto": {
       "lastSuccess": "2026-10-14T23:30:25.979Z",
@@ -285,7 +311,7 @@
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-yonemoto.htm",
       "parser": "gyo-ne-jp",
       "lastError": "fetch failed",
-      "lastErrorAt": "2026-10-16T23:04:36.202Z"
+      "lastErrorAt": "2026-10-17T22:44:07.033Z"
     },
     "tadahiko": {
       "lastSuccess": "2026-10-14T23:30:26.253Z",
@@ -293,26 +319,30 @@
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-tadahiko.htm",
       "parser": "gyo-ne-jp",
       "lastError": "fetch failed",
-      "lastErrorAt": "2026-10-16T23:04:36.202Z"
+      "lastErrorAt": "2026-10-17T22:44:07.032Z"
     }
   },
   "errors": [
+    {
+      "boatId": "fukagawa-yoshinoya",
+      "error": "HTTP 403"
+    },
     {
       "boatId": "tadahiko",
       "error": "fetch failed"
     },
     {
-      "boatId": "yonemoto",
+      "boatId": "yoshikyu",
       "error": "fetch failed"
     },
     {
-      "boatId": "yoshikyu",
+      "boatId": "yonemoto",
       "error": "fetch failed"
     }
   ],
   "summary": {
-    "ok": 7,
-    "failed": 3,
+    "ok": 6,
+    "failed": 4,
     "total": 10
   }
 }
