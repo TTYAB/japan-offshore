@@ -1,33 +1,33 @@
 {
-  "_lastCrawled": "2026-10-22T23:42:05.721Z",
+  "_lastCrawled": "2026-10-23T23:35:28.955Z",
   "_crawlerVersion": "1.0.0",
   "boats": {
     "sawaura": {
-      "lastSuccess": "2026-10-22T23:42:06.417Z",
+      "lastSuccess": "2026-10-23T23:35:29.645Z",
       "catches": [],
       "source": "https://www.fishing-v.jp/choka/choka_detail.php?s=12074",
       "parser": "fishing-v"
     },
     "watanabe": {
-      "lastSuccess": "2026-10-22T23:42:07.062Z",
+      "lastSuccess": "2026-10-23T23:35:30.241Z",
       "catches": [],
       "source": "https://www.fishing-v.jp/choka/detail.php?s=172",
       "parser": "fishing-v"
     },
     "fukagawa-yoshinoya": {
-      "lastSuccess": "2026-10-22T23:42:07.107Z",
+      "lastSuccess": "2026-10-23T23:35:30.284Z",
       "catches": [],
       "source": "https://www.chowari.jp/ship/00271/catch/",
       "parser": "chowari"
     },
     "tsurikou": {
-      "lastSuccess": "2026-10-22T23:42:09.087Z",
+      "lastSuccess": "2026-10-23T23:35:30.307Z",
       "catches": [],
       "source": "https://www.marines-net.co.jp/inn/tsurikouhonke",
       "parser": "marines-net"
     },
     "icfc": {
-      "lastSuccess": "2026-10-22T23:42:07.557Z",
+      "lastSuccess": "2026-10-23T23:35:30.487Z",
       "catches": [
         {
           "date": "2026-10-19",
@@ -234,13 +234,13 @@
       "parser": "rss"
     },
     "iwataya": {
-      "lastSuccess": "2026-10-22T23:42:10.210Z",
+      "lastSuccess": "2026-10-23T23:35:31.502Z",
       "catches": [],
       "source": "https://www.funayado-iwataya.com/",
       "parser": "generic"
     },
     "bentenya": {
-      "lastSuccess": "2026-10-22T23:42:10.590Z",
+      "lastSuccess": "2026-10-23T23:35:31.661Z",
       "catches": [],
       "source": "https://bentenya.com/",
       "parser": "generic"
@@ -251,7 +251,7 @@
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-yoshikyu.htm",
       "parser": "gyo-ne-jp",
       "lastError": "fetch failed",
-      "lastErrorAt": "2026-10-22T23:42:19.556Z"
+      "lastErrorAt": "2026-10-23T23:35:40.499Z"
     },
     "yonemoto": {
       "lastSuccess": "2026-10-21T23:45:22.908Z",
@@ -300,7 +300,7 @@
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-yonemoto.htm",
       "parser": "gyo-ne-jp",
       "lastError": "fetch failed",
-      "lastErrorAt": "2026-10-22T23:42:19.556Z"
+      "lastErrorAt": "2026-10-23T23:35:40.499Z"
     },
     "tadahiko": {
       "lastSuccess": "2026-10-21T23:45:23.175Z",
@@ -308,7 +308,7 @@
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-tadahiko.htm",
       "parser": "gyo-ne-jp",
       "lastError": "fetch failed",
-      "lastErrorAt": "2026-10-22T23:42:19.555Z"
+      "lastErrorAt": "2026-10-23T23:35:40.498Z"
     }
   },
   "errors": [
@@ -317,11 +317,11 @@
       "error": "fetch failed"
     },
     {
-      "boatId": "yonemoto",
+      "boatId": "yoshikyu",
       "error": "fetch failed"
     },
     {
-      "boatId": "yoshikyu",
+      "boatId": "yonemoto",
       "error": "fetch failed"
     }
   ],
