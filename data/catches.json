@@ -1,34 +1,59 @@
 {
-  "_lastCrawled": "2026-10-23T23:35:28.955Z",
+  "_lastCrawled": "2026-10-24T22:45:36.776Z",
   "_crawlerVersion": "1.0.0",
   "boats": {
     "sawaura": {
-      "lastSuccess": "2026-10-23T23:35:29.645Z",
+      "lastSuccess": "2026-10-24T22:45:37.442Z",
       "catches": [],
       "source": "https://www.fishing-v.jp/choka/choka_detail.php?s=12074",
       "parser": "fishing-v"
     },
     "watanabe": {
-      "lastSuccess": "2026-10-23T23:35:30.241Z",
-      "catches": [],
+      "lastSuccess": "2026-10-24T22:45:37.683Z",
+      "catches": [
+        {
+          "date": "2026-10-24",
+          "fish": "タチウオ",
+          "countMin": 32,
+          "countMax": 32,
+          "sizeRange": null,
+          "comment": "2026年10月24日(土) 魚種 匹数 大きさ 重さ 特記 ポイント 1 タチウオ 10～32 匹 60～100 cm 中の瀬水深15～28m 1ルアー・5人の釣果。タチウオ船、本日から再開。浅場狙…"
+        }
+      ],
       "source": "https://www.fishing-v.jp/choka/detail.php?s=172",
       "parser": "fishing-v"
     },
     "fukagawa-yoshinoya": {
-      "lastSuccess": "2026-10-23T23:35:30.284Z",
+      "lastSuccess": "2026-10-24T22:45:38.035Z",
       "catches": [],
       "source": "https://www.chowari.jp/ship/00271/catch/",
       "parser": "chowari"
     },
     "tsurikou": {
-      "lastSuccess": "2026-10-23T23:35:30.307Z",
+      "lastSuccess": "2026-10-24T22:45:38.083Z",
       "catches": [],
       "source": "https://www.marines-net.co.jp/inn/tsurikouhonke",
       "parser": "marines-net"
     },
     "icfc": {
-      "lastSuccess": "2026-10-23T23:35:30.487Z",
+      "lastSuccess": "2026-10-24T22:45:38.700Z",
       "catches": [
+        {
+          "date": "2026-10-24",
+          "fish": "サワラ",
+          "countMin": 2,
+          "countMax": 2,
+          "sizeRange": null,
+          "comment": "10/24 シーバス通し便、宇佐美 シーバス狙いで出船！まずはトップで一本ゲット！お次はコノフラットで2本ゲット！そこからいろいろ回ってみましたがノーヒット。バイブレーションとミノーは好調でポツリポツ…"
+        },
+        {
+          "date": "2026-10-24",
+          "fish": "シーバス",
+          "countMin": 1,
+          "countMax": 1,
+          "sizeRange": null,
+          "comment": "10/24 シーバス通し便 コマツ ビッグベイトオンリー便！誤爆とバイトがあってからの１本目初シーバスの１本目がアマペン！ナイスでした！走り回って粘って捻り出した４本でした他にもバイトチェイス誤爆は少…"
+        },
         {
           "date": "2026-10-19",
           "fish": "サワラ",
@@ -234,13 +259,13 @@
       "parser": "rss"
     },
     "iwataya": {
-      "lastSuccess": "2026-10-23T23:35:31.502Z",
+      "lastSuccess": "2026-10-24T22:45:39.773Z",
       "catches": [],
       "source": "https://www.funayado-iwataya.com/",
       "parser": "generic"
     },
     "bentenya": {
-      "lastSuccess": "2026-10-23T23:35:31.661Z",
+      "lastSuccess": "2026-10-24T22:45:40.091Z",
       "catches": [],
       "source": "https://bentenya.com/",
       "parser": "generic"
@@ -251,7 +276,7 @@
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-yoshikyu.htm",
       "parser": "gyo-ne-jp",
       "lastError": "fetch failed",
-      "lastErrorAt": "2026-10-23T23:35:40.499Z"
+      "lastErrorAt": "2026-10-24T22:45:49.169Z"
     },
     "yonemoto": {
       "lastSuccess": "2026-10-21T23:45:22.908Z",
@@ -300,7 +325,7 @@
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-yonemoto.htm",
       "parser": "gyo-ne-jp",
       "lastError": "fetch failed",
-      "lastErrorAt": "2026-10-23T23:35:40.499Z"
+      "lastErrorAt": "2026-10-24T22:45:49.169Z"
     },
     "tadahiko": {
       "lastSuccess": "2026-10-21T23:45:23.175Z",
@@ -308,7 +333,7 @@
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-tadahiko.htm",
       "parser": "gyo-ne-jp",
       "lastError": "fetch failed",
-      "lastErrorAt": "2026-10-23T23:35:40.498Z"
+      "lastErrorAt": "2026-10-24T22:45:49.168Z"
     }
   },
   "errors": [
@@ -317,11 +342,11 @@
       "error": "fetch failed"
     },
     {
-      "boatId": "yoshikyu",
+      "boatId": "yonemoto",
       "error": "fetch failed"
     },
     {
-      "boatId": "yonemoto",
+      "boatId": "yoshikyu",
       "error": "fetch failed"
     }
   ],
