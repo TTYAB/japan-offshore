@@ -1,15 +1,15 @@
 {
-  "_lastCrawled": "2026-10-28T00:06:41.111Z",
+  "_lastCrawled": "2026-10-29T00:27:51.649Z",
   "_crawlerVersion": "1.0.0",
   "boats": {
     "sawaura": {
-      "lastSuccess": "2026-10-28T00:06:42.096Z",
+      "lastSuccess": "2026-10-29T00:27:52.271Z",
       "catches": [],
       "source": "https://www.fishing-v.jp/choka/choka_detail.php?s=12074",
       "parser": "fishing-v"
     },
     "watanabe": {
-      "lastSuccess": "2026-10-28T00:06:42.185Z",
+      "lastSuccess": "2026-10-29T00:27:52.623Z",
       "catches": [
         {
           "date": "2026-10-24",
@@ -24,21 +24,19 @@
       "parser": "fishing-v"
     },
     "fukagawa-yoshinoya": {
-      "lastSuccess": "2026-10-28T00:06:42.216Z",
+      "lastSuccess": "2026-10-29T00:27:52.962Z",
       "catches": [],
       "source": "https://www.chowari.jp/ship/00271/catch/",
       "parser": "chowari"
     },
     "tsurikou": {
-      "lastSuccess": "2026-10-27T00:06:54.712Z",
+      "lastSuccess": "2026-10-29T00:27:53.135Z",
       "catches": [],
       "source": "https://www.marines-net.co.jp/inn/tsurikouhonke",
-      "parser": "marines-net",
-      "lastError": "fetch failed",
-      "lastErrorAt": "2026-10-28T00:06:51.634Z"
+      "parser": "marines-net"
     },
     "icfc": {
-      "lastSuccess": "2026-10-28T00:06:42.668Z",
+      "lastSuccess": "2026-10-29T00:27:53.371Z",
       "catches": [
         {
           "date": "2026-10-24",
@@ -237,26 +235,34 @@
       "parser": "rss"
     },
     "iwataya": {
-      "lastSuccess": "2026-10-28T00:06:52.528Z",
+      "lastSuccess": "2026-10-29T00:27:54.447Z",
       "catches": [],
       "source": "https://www.funayado-iwataya.com/",
       "parser": "generic"
     },
     "bentenya": {
-      "lastSuccess": "2026-10-28T00:06:52.768Z",
+      "lastSuccess": "2026-10-29T00:27:54.814Z",
       "catches": [],
       "source": "https://bentenya.com/",
       "parser": "generic"
     },
     "yoshikyu": {
-      "lastSuccess": "2026-10-28T00:06:52.652Z",
+      "lastSuccess": "2026-10-29T00:27:54.867Z",
       "catches": [],
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-yoshikyu.htm",
       "parser": "gyo-ne-jp"
     },
     "yonemoto": {
-      "lastSuccess": "2026-10-28T00:06:52.643Z",
+      "lastSuccess": "2026-10-29T00:27:54.855Z",
       "catches": [
+        {
+          "date": "2026-10-28",
+          "fish": "アジ",
+          "countMin": 42,
+          "countMax": 42,
+          "sizeRange": null,
+          "comment": "10月28日の水曜日はｼｮｰﾄLTアジ船で出船ができました～♪(^^)。お越しになられた釣り人の皆さま、誠にありがとうございましたm(_ _)m。今日は秋晴れのいいお天気でしたが北風が強くなって東京地…"
+        },
         {
           "date": "2026-10-25",
           "fish": "マダイ",
@@ -310,21 +316,16 @@
       "parser": "gyo-ne-jp"
     },
     "tadahiko": {
-      "lastSuccess": "2026-10-28T00:06:53.287Z",
+      "lastSuccess": "2026-10-29T00:27:55.439Z",
       "catches": [],
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-tadahiko.htm",
       "parser": "gyo-ne-jp"
     }
   },
-  "errors": [
-    {
-      "boatId": "tsurikou",
-      "error": "fetch failed"
-    }
-  ],
+  "errors": [],
   "summary": {
-    "ok": 9,
-    "failed": 1,
+    "ok": 10,
+    "failed": 0,
     "total": 10
   }
 }
