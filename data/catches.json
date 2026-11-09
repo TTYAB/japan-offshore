@@ -1,15 +1,15 @@
 {
-  "_lastCrawled": "2026-11-08T00:01:48.870Z",
+  "_lastCrawled": "2026-11-09T00:10:19.532Z",
   "_crawlerVersion": "1.0.0",
   "boats": {
     "sawaura": {
-      "lastSuccess": "2026-11-08T00:01:49.777Z",
+      "lastSuccess": "2026-11-09T00:10:20.309Z",
       "catches": [],
       "source": "https://www.fishing-v.jp/choka/choka_detail.php?s=12074",
       "parser": "fishing-v"
     },
     "watanabe": {
-      "lastSuccess": "2026-11-08T00:01:49.828Z",
+      "lastSuccess": "2026-11-09T00:10:20.809Z",
       "catches": [
         {
           "date": "2026-10-24",
@@ -24,19 +24,19 @@
       "parser": "fishing-v"
     },
     "fukagawa-yoshinoya": {
-      "lastSuccess": "2026-11-08T00:01:50.249Z",
+      "lastSuccess": "2026-11-09T00:10:20.923Z",
       "catches": [],
       "source": "https://www.chowari.jp/ship/00271/catch/",
       "parser": "chowari"
     },
     "tsurikou": {
-      "lastSuccess": "2026-11-08T00:01:50.274Z",
+      "lastSuccess": "2026-11-09T00:10:20.893Z",
       "catches": [],
       "source": "https://www.marines-net.co.jp/inn/tsurikouhonke",
       "parser": "marines-net"
     },
     "icfc": {
-      "lastSuccess": "2026-11-08T00:01:50.751Z",
+      "lastSuccess": "2026-11-09T00:10:21.504Z",
       "catches": [
         {
           "date": "2026-11-07",
@@ -165,56 +165,40 @@
           "countMax": 6,
           "sizeRange": null,
           "comment": "10/11 サワラ便 太郎 今日はサワラ狙いで出船！よくヒットします！イナダも連発！釣り自体が初の方や、皆さんサワラ釣りはじめての方も多いですが、平和にヒットしますカンパチ！太刀魚も釣れます！全員釣れ…"
-        },
-        {
-          "date": "2026-10-09",
-          "fish": "サワラ",
-          "countMin": 3,
-          "countMax": 3,
-          "sizeRange": null,
-          "comment": "10/9 サワラ便 太郎 今日はサワラ狙いで出船！朝はよく跳ねますがノーバイト！ダブルイナダ！イナダよく当たります！ナイスキャッチ！マゴチ！サワラきました！終盤も跳ねまくり！サワラ！良いサイズ！ミノー…"
-        },
-        {
-          "date": "2026-10-09",
-          "fish": "イナダ",
-          "countMin": 5,
-          "countMax": 5,
-          "sizeRange": null,
-          "comment": "10/9 サワラ便 太郎 今日はサワラ狙いで出船！朝はよく跳ねますがノーバイト！ダブルイナダ！イナダよく当たります！ナイスキャッチ！マゴチ！サワラきました！終盤も跳ねまくり！サワラ！良いサイズ！ミノー…"
-        },
-        {
-          "date": "2026-10-09",
-          "fish": "タチウオ",
-          "countMin": 2,
-          "countMax": 2,
-          "sizeRange": null,
-          "comment": "10/9 サワラ便 太郎 今日はサワラ狙いで出船！朝はよく跳ねますがノーバイト！ダブルイナダ！イナダよく当たります！ナイスキャッチ！マゴチ！サワラきました！終盤も跳ねまくり！サワラ！良いサイズ！ミノー…"
         }
       ],
       "source": "https://icfc.jugem.jp/?mode=rss",
       "parser": "rss"
     },
     "iwataya": {
-      "lastSuccess": "2026-11-08T00:01:51.737Z",
+      "lastSuccess": "2026-11-09T00:10:22.728Z",
       "catches": [],
       "source": "https://www.funayado-iwataya.com/",
       "parser": "generic"
     },
     "bentenya": {
-      "lastSuccess": "2026-11-08T00:01:52.141Z",
+      "lastSuccess": "2026-11-09T00:10:22.818Z",
       "catches": [],
       "source": "https://bentenya.com/",
       "parser": "generic"
     },
     "yoshikyu": {
-      "lastSuccess": "2026-11-08T00:01:52.090Z",
+      "lastSuccess": "2026-11-09T00:10:23.001Z",
       "catches": [],
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-yoshikyu.htm",
       "parser": "gyo-ne-jp"
     },
     "yonemoto": {
-      "lastSuccess": "2026-11-08T00:01:52.073Z",
+      "lastSuccess": "2026-11-09T00:10:22.994Z",
       "catches": [
+        {
+          "date": "2026-11-08",
+          "fish": "マダイ",
+          "countMin": 2,
+          "countMax": 2,
+          "sizeRange": null,
+          "comment": "11月8日の日曜日もｼｮｰﾄLTアジ船で出船ができました♪(^^)。お越しになられた釣り人の皆さま、誠にありがとうございましたm(_ _)m。朝から青空が映える日差したっぷりのいいお天気♪北風が少し吹…"
+        },
         {
           "date": "2026-11-07",
           "fish": "マダイ",
@@ -324,7 +308,7 @@
       "parser": "gyo-ne-jp"
     },
     "tadahiko": {
-      "lastSuccess": "2026-11-08T00:01:52.620Z",
+      "lastSuccess": "2026-11-09T00:10:23.620Z",
       "catches": [],
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-tadahiko.htm",
       "parser": "gyo-ne-jp"
