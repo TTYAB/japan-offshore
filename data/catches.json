@@ -1,15 +1,15 @@
 {
-  "_lastCrawled": "2026-11-15T00:27:11.014Z",
+  "_lastCrawled": "2026-11-16T00:27:02.901Z",
   "_crawlerVersion": "1.0.0",
   "boats": {
     "sawaura": {
-      "lastSuccess": "2026-11-15T00:27:12.068Z",
+      "lastSuccess": "2026-11-16T00:27:03.931Z",
       "catches": [],
       "source": "https://www.fishing-v.jp/choka/choka_detail.php?s=12074",
       "parser": "fishing-v"
     },
     "watanabe": {
-      "lastSuccess": "2026-11-15T00:27:12.278Z",
+      "lastSuccess": "2026-11-16T00:27:04.174Z",
       "catches": [
         {
           "date": "2026-10-24",
@@ -24,20 +24,28 @@
       "parser": "fishing-v"
     },
     "fukagawa-yoshinoya": {
-      "lastSuccess": "2026-11-15T00:27:12.486Z",
+      "lastSuccess": "2026-11-16T00:27:04.198Z",
       "catches": [],
       "source": "https://www.chowari.jp/ship/00271/catch/",
       "parser": "chowari"
     },
     "tsurikou": {
-      "lastSuccess": "2026-11-15T00:27:12.318Z",
+      "lastSuccess": "2026-11-16T00:27:04.488Z",
       "catches": [],
       "source": "https://www.marines-net.co.jp/inn/tsurikouhonke",
       "parser": "marines-net"
     },
     "icfc": {
-      "lastSuccess": "2026-11-15T00:27:12.508Z",
+      "lastSuccess": "2026-11-16T00:27:04.526Z",
       "catches": [
+        {
+          "date": "2026-11-15",
+          "fish": "シーバス",
+          "countMin": 5,
+          "countMax": 5,
+          "sizeRange": null,
+          "comment": "11/15 シーバス便 太郎 今日はシーバス狙いで出船！まずはコノフラット！ダヴィンチ！レイジーハード！ダヴィンチで追加でした！無事全員キャッチです！雨の中ありがとうございました&#128583;&#…"
+        },
         {
           "date": "2026-11-13",
           "fish": "シーバス",
@@ -181,27 +189,19 @@
           "countMax": 4,
           "sizeRange": null,
           "comment": "10/17 サワラ便 太郎 今日はサワラ狙いで出船！朝一からバリバリヒット！良いサイズも！イナダ！五目の達人！後半は型狙いで！反応のわりに食いませんが、なんとかヒット！87cmでました！全員安打でした…"
-        },
-        {
-          "date": "2026-10-16",
-          "fish": "サワラ",
-          "countMin": 3,
-          "countMax": 3,
-          "sizeRange": null,
-          "comment": "10/16 サワラ便 今日はサワラ狙いで出船！太刀魚！サゴシ、ポツポツヒット！ショゴは今日も登場！オーストラリアから来られたお二人、レンタルタックルでよく釣りました！良いサイズ！ナイスサイズ！サワラ！…"
         }
       ],
       "source": "https://icfc.jugem.jp/?mode=rss",
       "parser": "rss"
     },
     "iwataya": {
-      "lastSuccess": "2026-11-15T00:27:14.355Z",
+      "lastSuccess": "2026-11-16T00:27:05.781Z",
       "catches": [],
       "source": "https://www.funayado-iwataya.com/",
       "parser": "generic"
     },
     "bentenya": {
-      "lastSuccess": "2026-11-15T00:27:13.877Z",
+      "lastSuccess": "2026-11-16T00:27:05.935Z",
       "catches": [],
       "source": "https://bentenya.com/",
       "parser": "generic"
@@ -210,7 +210,9 @@
       "lastSuccess": "2026-11-15T00:27:13.866Z",
       "catches": [],
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-yoshikyu.htm",
-      "parser": "gyo-ne-jp"
+      "parser": "gyo-ne-jp",
+      "lastError": "fetch failed",
+      "lastErrorAt": "2026-11-16T00:27:14.924Z"
     },
     "yonemoto": {
       "lastSuccess": "2026-11-15T00:27:13.854Z",
@@ -329,19 +331,36 @@
         }
       ],
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-yonemoto.htm",
-      "parser": "gyo-ne-jp"
+      "parser": "gyo-ne-jp",
+      "lastError": "fetch failed",
+      "lastErrorAt": "2026-11-16T00:27:14.924Z"
     },
     "tadahiko": {
       "lastSuccess": "2026-11-15T00:27:14.414Z",
       "catches": [],
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-tadahiko.htm",
-      "parser": "gyo-ne-jp"
+      "parser": "gyo-ne-jp",
+      "lastError": "fetch failed",
+      "lastErrorAt": "2026-11-16T00:27:14.923Z"
     }
   },
-  "errors": [],
+  "errors": [
+    {
+      "boatId": "tadahiko",
+      "error": "fetch failed"
+    },
+    {
+      "boatId": "yoshikyu",
+      "error": "fetch failed"
+    },
+    {
+      "boatId": "yonemoto",
+      "error": "fetch failed"
+    }
+  ],
   "summary": {
-    "ok": 10,
-    "failed": 0,
+    "ok": 7,
+    "failed": 3,
     "total": 10
   }
 }
