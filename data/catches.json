@@ -1,21 +1,21 @@
 {
-  "_lastCrawled": "2026-11-26T03:14:44.815Z",
+  "_lastCrawled": "2026-11-27T03:18:47.214Z",
   "_crawlerVersion": "1.0.0",
   "boats": {
     "sawaura": {
-      "lastSuccess": "2026-11-26T03:14:45.458Z",
+      "lastSuccess": "2026-11-27T03:18:48.173Z",
       "catches": [],
       "source": "https://www.fishing-v.jp/choka/choka_detail.php?s=12074",
       "parser": "fishing-v"
     },
     "watanabe": {
-      "lastSuccess": "2026-11-26T03:14:45.882Z",
+      "lastSuccess": "2026-11-27T03:18:48.619Z",
       "catches": [],
       "source": "https://www.fishing-v.jp/choka/detail.php?s=172",
       "parser": "fishing-v"
     },
     "fukagawa-yoshinoya": {
-      "lastSuccess": "2026-11-26T03:14:46.186Z",
+      "lastSuccess": "2026-11-27T03:18:49.419Z",
       "catches": [
         {
           "date": "2026-11-23",
@@ -30,14 +30,22 @@
       "parser": "chowari"
     },
     "tsurikou": {
-      "lastSuccess": "2026-11-26T03:14:46.232Z",
+      "lastSuccess": "2026-11-27T03:18:48.679Z",
       "catches": [],
       "source": "https://www.marines-net.co.jp/inn/tsurikouhonke",
       "parser": "marines-net"
     },
     "icfc": {
-      "lastSuccess": "2026-11-26T03:14:46.708Z",
+      "lastSuccess": "2026-11-27T03:18:48.544Z",
       "catches": [
+        {
+          "date": "2026-11-26",
+          "fish": "シーバス",
+          "countMin": 4,
+          "countMax": 4,
+          "sizeRange": null,
+          "comment": "11/26 シーバス便 太郎 今日はシーバス狙いで出船！朝はウェイキーブー！連発でした！続いてコノフラット！ラストはジグヘッドワーム！なかなか釣るのが難しい日でした！最後までありがとうございました&#…"
+        },
         {
           "date": "2026-11-21",
           "fish": "シーバス",
@@ -147,13 +155,13 @@
       "parser": "rss"
     },
     "iwataya": {
-      "lastSuccess": "2026-11-26T03:14:47.867Z",
+      "lastSuccess": "2026-11-27T03:18:50.288Z",
       "catches": [],
       "source": "https://www.funayado-iwataya.com/",
       "parser": "generic"
     },
     "bentenya": {
-      "lastSuccess": "2026-11-26T03:14:48.201Z",
+      "lastSuccess": "2026-11-27T03:18:50.536Z",
       "catches": [],
       "source": "https://bentenya.com/",
       "parser": "generic"
@@ -164,7 +172,7 @@
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-yoshikyu.htm",
       "parser": "gyo-ne-jp",
       "lastError": "fetch failed",
-      "lastErrorAt": "2026-11-26T03:14:57.172Z"
+      "lastErrorAt": "2026-11-27T03:18:59.867Z"
     },
     "yonemoto": {
       "lastSuccess": "2026-11-25T03:50:00.298Z",
@@ -301,7 +309,7 @@
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-yonemoto.htm",
       "parser": "gyo-ne-jp",
       "lastError": "fetch failed",
-      "lastErrorAt": "2026-11-26T03:14:57.171Z"
+      "lastErrorAt": "2026-11-27T03:18:59.867Z"
     },
     "tadahiko": {
       "lastSuccess": "2026-11-25T03:50:00.586Z",
@@ -309,7 +317,7 @@
       "source": "https://www.gyo.ne.jp/rep_tsuri_view%7CCID-tadahiko.htm",
       "parser": "gyo-ne-jp",
       "lastError": "fetch failed",
-      "lastErrorAt": "2026-11-26T03:14:57.170Z"
+      "lastErrorAt": "2026-11-27T03:18:59.866Z"
     }
   },
   "errors": [
